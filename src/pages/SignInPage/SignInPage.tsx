@@ -8,7 +8,7 @@ import { Context } from '../..';
 import AuthForm, {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import { Routes } from '../../constants/routes';
 import {useContext} from "react";
-// import firebase from 'firebase/compat';
+import firebase from 'firebase/compat/app';
 
 // import {handleUserSignIn} from "../../store/asyncActions/userActions";
 
@@ -84,11 +84,12 @@ const SignInPage: FC = () => {
 
     // @ts-ignore
     const {auth} = useContext(Context)
-
+    console.log(auth)
     const handleSignIn = async () => {
-        // const provider = new firebase.auth.GoogleAuthProvider
-        // const {user} = auth.signInWithPopup(provider)
-        console.log("123")
+        const provider = new firebase.auth.GoogleAuthProvider()
+        console.log(provider)
+        const {user} = auth.signInWithPopup(provider)
+        console.log(user)
     }
 
     const signInFormConfig: IFormProps = {
