@@ -1,0 +1,55 @@
+.formWrapper {
+    margin: 0 auto;
+    max-width: 624px;
+    width: 100%;
+    border: 1px solid #DADADA;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 40px;
+}
+
+.topText {
+    margin-bottom: 40px;
+}
+
+.forgotPassword {
+    color: #313037;
+    font-size: 16px;
+    text-decoration: unset;
+}
+
+.formInput + .formInput {
+    margin-top: 40px;
+}
+
+.submitButton {
+    width: 100%;
+    margin-top: 48px;
+}
+
+.formWrapper label + label {
+    margin-top: 40px;
+}
+
+.bottomText {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.text {
+    display: flex;
+    align-items: center;
+    color: #8D8E97;
+    gap: 0.5ch;
+    font-weight: 500;
+}
+
+.text a {
+    color: #2231AA;
+}
