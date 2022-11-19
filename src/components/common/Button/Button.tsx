@@ -17,6 +17,7 @@ interface ButtonProps {
     className?: string
     variant?: ButtonVariantProps
     onClick?: MouseEventHandler
+    disabled?: boolean
 }
 
 const Button: FC<ButtonProps & WithChildren> = (
@@ -25,11 +26,13 @@ const Button: FC<ButtonProps & WithChildren> = (
         className = "",
         type= "button",
         children,
-        onClick= () => {}
+        onClick= () => {},
+        disabled
     }) => {
 
     return (
         <button
+            disabled={disabled}
             onClick={onClick}
             className={`
                 ${styles.btn} 

@@ -13,7 +13,7 @@ const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
     const [email, setEmail] = useState<string>("")
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: { value: email }}) => setEmail(email);
-    const handleRedirectToHomePage = () => navigate(Routes.blog);
+    const handleRedirectToHomePage = () => navigate(Routes.main);
 
     const resetPasswordEmailFormConfig: IFormProps = {
         topText: `You will receive an email with a link to reset your password!`,

@@ -15,7 +15,8 @@
 }
 
 .primary {
-    background: #2231AA;
+    background: #7B61FF;
+    border-radius: 10px;
 }
 
 .primary:hover {

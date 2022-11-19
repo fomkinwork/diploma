@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
 import AppRouter from './components/AppRouter/AppRouter';
+import MainWrapper from "./components/common/MainWrapper/MainWrapper";
 
 function App() {
   return (
     <div className="App">
-        <AppRouter/>
+        <MainWrapper>
+            <AppRouter/>
+        </MainWrapper>
     </div>
   );
 }

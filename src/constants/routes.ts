@@ -14,6 +14,8 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 // import SearchResultsPage from "../pages/SearchResultsPage/SearchResultsPage";
 
 import {PageProps} from "../types/page";
+import Content from "../pages/ContentPages/ContentPages";
+import Main from "../pages/Main/Main";
 
 // @ts-ignore
 export interface IRoute extends RouteObject{
@@ -25,8 +27,8 @@ export interface IRoute extends RouteObject{
 export enum Routes {
     signIn = "/signin",
     signUp = "/signup",
-    blog = "/blog",
-    post = "/blog/:id",
+    main = "/main",
+    content = "/main/:id",
     search = "/search",
     addPost = "/add-post",
     signUpSuccess = "/signup/success",
@@ -38,8 +40,8 @@ export enum Routes {
 export const PUBLIC_ROUTES: IRoute[] = [
     {path: Routes.signIn, Element: SignInPage, title: "Sign In"},
     {path: Routes.signUp, Element: SignUpPage, title: "Sign Up"},
-    // {path: Routes.blog, Element: BlogPage, title: "Blog"},
-    // {path: Routes.post, Element: PostPage},
+    {path: Routes.main, Element: Main, title: "Blog"},
+    {path: Routes.content, Element: Content},
     // {path: Routes.signUpConfirmation, Element: SignUpConfirmationPage, title: "Registration confirmation"},
     // {path: Routes.resetPasswordEmail, Element: ResetPasswordEmailPage, title: "Reset password"},
     // {path: Routes.resetPassword, Element: ResetPasswordPage, title: "New password"},

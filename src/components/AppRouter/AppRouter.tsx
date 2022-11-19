@@ -32,7 +32,7 @@ const AppRouter: FC = () => {
                     :
                     PUBLIC_ROUTES.map(({ path, Element, title}) => <Route key={path} path={path} element={<Element title={title} />} />)
                 }
-                <Route path={"*"} element={<Navigate to={"/blog"} replace />} />
+                <Route path={"*"} element={<Navigate to={"/main"} replace />} />
             </Routes>
     );
 };

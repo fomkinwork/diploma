@@ -14,19 +14,20 @@
     justify-content: center;
     min-width: 545px;
     width: 100%;
-    line-height: 20px;
     font-weight: 600;
-    color: #313037;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
     cursor: pointer;
 }
 
 .input {
     padding: 18px 20px;
-    border-radius: 2px;
-    background: #FFF;
     font-weight: 400;
     width: 100%;
     border: 2px solid transparent;
+    background: #323537;
+    border-radius: 10px;
 }
 
 input:focus,
@@ -40,7 +41,7 @@ input:disabled {
 }
 
 input::placeholder {
-    color: #8D8E97;
+    color: #80858B;
 }
 
 .error {

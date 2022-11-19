@@ -1,0 +1,90 @@
+.contentPostWrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.contentPostPoster {
+    padding: 0 42px 32px 0;
+}
+
+.contentPostPosterImg {
+    height: 356px;
+    width: 266px;
+    border-radius: 20px;
+}
+
+.contentPostInfoGenre {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #AFB2B6;
+}
+
+.contentPostInfoTitle {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 60px;
+    color: #FFFFFF;
+}
+
+.contentPostInfoBlock {
+    display: flex;
+    justify-content: start;
+    margin: 24px 0 40px;
+}
+
+.contentPostInfoBlockRating {
+    background: #00A340;
+    border-radius: 6px;
+    margin-right: 28px;
+    padding: 5px 15px;
+}
+
+.contentPostInfoBlockRatingService, .contentPostInfoBlockDuration {
+    background: #323537;
+    border-radius: 6px;
+    margin-right: 28px;
+    padding: 5px 15px;
+}
+
+.contentPostInfoMovei {
+    margin-bottom: 20px;
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #AFB2B6;
+    white-space: nowrap;
+}
+
+.contentPostInfo span {
+    font-weight: 500;
+    color: #FFFFFF;
+}
+
+.contentPostPosterActions {
+    display: flex;
+}
+
+.contentPostMore, .contentPostFrame {
+    width: 132px;
+    background: #323537;
+    padding: 19px 0;
+    text-align: center;
+    margin-top: 32px;
+    cursor: pointer;
+}
+
+.contentPostMore {
+    border-radius: 10px 0 0 10px;
+}
+
+.contentPostFrame {
+    border-radius: 0 10px 10px 0;
+}

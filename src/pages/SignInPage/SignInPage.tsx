@@ -1,5 +1,4 @@
-import React, {ChangeEventHandler, FC, useState} from 'react';
-import { Context } from '../..';
+import React, {ChangeEventHandler, FC, useEffect, useState} from 'react';
 //
 // import {useDispatch} from "react-redux";
 // import {useNavigate} from "react-router-dom";
@@ -9,6 +8,11 @@ import AuthForm, {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import { Routes } from '../../constants/routes';
 import {useContext} from "react";
 import firebase from 'firebase/compat/app';
+import {getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, inMemoryPersistence, GoogleAuthProvider, onAuthStateChanged} from "firebase/auth";
+import {useDispatch, useSelector} from "react-redux";
+import {setUserAction} from "../../store/reducers/userReducer";
+import {signInWithCredential} from "@firebase/auth";
+import Button from "../../components/common/Button/Button";
 
 // import {handleUserSignIn} from "../../store/asyncActions/userActions";
 
@@ -20,11 +24,12 @@ interface ISignInForm {
     password: string
 }
 
+// @ts-ignore
 const SignInPage: FC = () => {
     const [signInForm, setSignInForm] = useState<ISignInForm>({ email: "", password: "" });
 
-    // const dispatch = useDispatch();
-    //
+    const dispatch = useDispatch();
+
     // const navigate = useNavigate()
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
@@ -36,61 +41,41 @@ const SignInPage: FC = () => {
 
     // const handleUserNavigate = () => navigate(Routes.blog)
 
-    // const handleUpdateAccessToken = async () => {
-    //     const token = localStorage.getItem("refresh");
-    //
-    //     if (!!token) {
-    //         const { accessToken  } = await UserService.accessTokenUpdate(token);
-    //         localStorage.setItem("access", accessToken);
-    //
-    //         return accessToken
-    //     }
-    // }
+    const handleSignIn = async () => {
+            const auth = getAuth();
+                    // signInWithEmailAndPassword(auth, signInForm.email, signInForm.password))
+            await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
+                .then(({user}) => {
+                    console.log(user);
+                    dispatch(setUserAction({
+                        email: user.email,
+                        id: user.uid,
+                        name: user.displayName
+                    }));
+                })
+                .catch(() => alert('Invalid user!'))
 
-    // const handleVerifyToken = async () => {
-    //     const token = localStorage.getItem("access");
-    //
-    //     const result = {
-    //         token: token,
-    //         valid: false
-    //     }
-    //
-    //     if (!!token) {
-    //         await UserService.tokenVerify(token)
-    //         result.valid = true
-    //     }
-    //
-    //     return result
-    // }
-    //
-    // const handleUserInformationCall = async (token: string) => {
-    //     return await UserService.getUser(token)
-    // }
+        }
 
-    // const handleUserInformationGet = async () => {
-    //     const { valid, token } = await handleVerifyToken()
-    //
-    //     let user;
-    //
-    //     if (valid && token) {
-    //         user = await handleUserInformationCall(token)
-    //     } else  {
-    //         const token = await handleUpdateAccessToken();
-    //         user = await handleUserInformationCall(token)
-    //     }
-    //
-    //     return user
-    // }
+
+        // @ts-ignore
+    useEffect(() => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log(user);
+            } else {
+                console.log('User not authenticated')
+            }
+        })
+    },[])
+
+
 
     // @ts-ignore
-    const {auth} = useContext(Context)
-    console.log(auth)
-    const handleSignIn = async () => {
-        const provider = new firebase.auth.GoogleAuthProvider()
-        console.log(provider)
-        const {user} = auth.signInWithPopup(provider)
-        console.log(user)
-    }
+    const  {user}  = useSelector(state => state.user)
+
+    console.log(user)
 
     const signInFormConfig: IFormProps = {
         inputs: [

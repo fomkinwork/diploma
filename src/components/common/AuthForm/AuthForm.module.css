@@ -1,18 +1,27 @@
 .formWrapper {
     margin: 0 auto;
-    max-width: 624px;
+    max-width: 574px;
     width: 100%;
-    border: 1px solid #DADADA;
+    max-height: 732px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: baseline;
     justify-content: space-between;
     gap: 16px;
     padding: 40px;
+    background: #242426;
+    border-radius: 10px;
 }
 
 .topText {
     margin-bottom: 40px;
+    color: #FFFFFF;
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
 }
 
 .forgotPassword {
@@ -22,7 +31,7 @@
 }
 
 .formInput + .formInput {
-    margin-top: 40px;
+    /*margin-top: 40px;*/
 }
 
 .submitButton {
@@ -45,7 +54,7 @@
 .text {
     display: flex;
     align-items: center;
-    color: #8D8E97;
+    color: #FFFFFF;
     gap: 0.5ch;
     font-weight: 500;
 }

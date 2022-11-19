@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 const SignUpSuccessPage: FC<PageProps> = ({ title = "" }) => {
     const navigate = useNavigate();
 
-    const handleRedirectToHomePage = () => navigate(Routes.blog);
+    const handleRedirectToHomePage = () => navigate(Routes.main);
 
     const SignUpSuccessFormConfig: IFormProps = {
         topText: `Email confirmed. <br /> Your registration is now completed`,
