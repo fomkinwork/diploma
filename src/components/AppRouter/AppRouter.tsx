@@ -3,26 +3,41 @@ import React, {FC, useEffect} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 
 import {PRIVATE_ROUTES, PUBLIC_ROUTES} from "../../constants/routes";
+import {useAuth} from "../../hooks/use-Auth";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {useDispatch, useSelector} from "react-redux";
+import {setUserAction} from "../../store/reducers/userReducer";
 
 // import {handleGetUser} from "../../store/asyncActions/userActions";
 
 const AppRouter: FC = () => {
-    // const dispatch = useDispatch();
+    const auth = getAuth();
+    const dispatch = useDispatch();
+
     // @ts-ignore
-    // const { isAuth }: boolean = useSelector(state => state?.user);
-    const isAuth: boolean = false
+    const { isAuth }: boolean = useSelector(state => state?.user);
 
-    // const handleGetUserSession = async () => {
-    //     const accessToken = localStorage.getItem("access") || "";
-    //     const refreshToken = localStorage.getItem("refresh") || "";
-    //
-    //     // @ts-ignore
-    //     dispatch(handleGetUser(accessToken, refreshToken));
-    // }
+    const getUser = async () => {
+        await onAuthStateChanged(auth, (user) => {
+            if (user !== null) {
+                console.log(user)
+                dispatch(setUserAction({
+                    email: user.email,
+                    id: user.uid,
+                    name: user.displayName
+                }))
+            } else {
+                console.log('User not authenticated')
+            }
+        })
+    }
 
-    // useEffect(() => {
-    //     handleGetUserSession()
-    // }, [])
+    useEffect(() => {
+        getUser()
+    },[]);
+
+    //Сначала юзера нет, потом появляется, нужно помудрить с асинхроном
+
 
     return (
             <Routes>

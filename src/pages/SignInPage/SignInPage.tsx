@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setUserAction} from "../../store/reducers/userReducer";
 import {signInWithCredential} from "@firebase/auth";
 import Button from "../../components/common/Button/Button";
+import {useLocation, useNavigate} from "react-router-dom";
 
 // import {handleUserSignIn} from "../../store/asyncActions/userActions";
 
@@ -24,13 +25,22 @@ interface ISignInForm {
     password: string
 }
 
+export interface FormElementError {
+    text: string | null
+    error: boolean
+}
+
+const initialErrorValue = { text: null, error: false }
+
 // @ts-ignore
 const SignInPage: FC = () => {
     const [signInForm, setSignInForm] = useState<ISignInForm>({ email: "", password: "" });
+    const [signInError, setSignInError] = useState<FormElementError>(initialErrorValue)
 
     const dispatch = useDispatch();
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
+    const location = useLocation();
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
         setSignInForm(prevState => ({...prevState, email}));
@@ -43,7 +53,6 @@ const SignInPage: FC = () => {
 
     const handleSignIn = async () => {
             const auth = getAuth();
-                    // signInWithEmailAndPassword(auth, signInForm.email, signInForm.password))
             await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
                 .then(({user}) => {
                     console.log(user);
@@ -52,30 +61,30 @@ const SignInPage: FC = () => {
                         id: user.uid,
                         name: user.displayName
                     }));
+                    setSignInError(initialErrorValue)
                 })
-                .catch(() => alert('Invalid user!'))
+                .catch((error)=> {
+                    handleCatchError(error.code)});
 
         }
 
-
-        // @ts-ignore
-    useEffect(() => {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log(user);
-            } else {
-                console.log('User not authenticated')
+        function handleCatchError (error: {}) {
+            switch (error) {
+                case "auth/wrong-password":
+                    setSignInError({ error: true, text: "Неверный пароль" })
+                    break
+                case "auth/user-not-found":
+                    setSignInError({ error: true, text: "Пользователя не существует" })
+                    break
+                case "auth/too-many-requests":
+                    setSignInError({ error: true, text: "Попробуйте войти позже" })
+                    break
+                case "auth/invalid-email":
+                    setSignInError({ error: true, text: "Неверный email" })
+                    break
+                default: setSignInError({ error: true, text: "Что-то пошло не так, попробуйте еще раз" })
             }
-        })
-    },[])
-
-
-
-    // @ts-ignore
-    const  {user}  = useSelector(state => state.user)
-
-    console.log(user)
+        }
 
     const signInFormConfig: IFormProps = {
         inputs: [
@@ -101,12 +110,15 @@ const SignInPage: FC = () => {
         actionButton: {
             onSubmit: handleSignIn,
             title: "Sign In"
-        }
+        },
+        topText: location.pathname === "/signup/success" ? "Your password has been changed !" : "" ,
+        error: signInError
     }
 
     return (
         <div>
             <AuthForm {...signInFormConfig} />
+            {signInError && <div>{signInError.text}</div>}
         </div>
     );
 };

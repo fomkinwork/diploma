@@ -6,6 +6,7 @@ import {PageProps} from "../../types/page";
 import {Routes} from "../../constants/routes";
 import AuthForm, {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import {useNavigate} from "react-router-dom";
+import {getAuth, sendPasswordResetEmail} from "firebase/auth";
 
 const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
     const navigate = useNavigate();
@@ -14,6 +15,18 @@ const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: { value: email }}) => setEmail(email);
     const handleRedirectToHomePage = () => navigate(Routes.main);
+
+    const handleSendPasswordResetEmail = async () => {
+        const auth = getAuth();
+        await sendPasswordResetEmail(auth, email)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch(console.error);
+        await handleRedirectToHomePage
+    }
+
+
 
     const resetPasswordEmailFormConfig: IFormProps = {
         topText: `You will receive an email with a link to reset your password!`,
@@ -27,7 +40,7 @@ const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
             placeholder: "Enter your Email"
         }],
         actionButton: {
-            onSubmit: handleRedirectToHomePage,
+            onSubmit: handleSendPasswordResetEmail,
             title: "Send Link"
         }
     }

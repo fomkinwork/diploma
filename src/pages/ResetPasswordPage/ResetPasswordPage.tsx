@@ -6,6 +6,8 @@ import AuthForm, {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import {PageProps} from "../../types/page";
 
 import {Routes} from "../../constants/routes";
+import {getAuth, sendPasswordResetEmail, signOut, updatePassword} from "firebase/auth";
+import {useNavigate} from "react-router-dom";
 
 interface IResetPasswordForm {
     newPassword: string,
@@ -18,7 +20,27 @@ const ResetPasswordPage: FC<PageProps> = ({ title = "" }) => {
         confirmPassword: ""
     })
 
-    const handleSendLink = () => console.log("Link Was Sent");
+    const navigate = useNavigate();
+    const auth = getAuth()
+    const user = auth.currentUser
+
+    const handleUserNavigateToSuccesPage = () => navigate(Routes.resetPasswordSuccess)
+    const handleUserNavigateToSignInPage = () => navigate(Routes.signIn)
+
+    const handleChangePassword = async () => {
+        // @ts-ignore
+        await updatePassword(user, resetPasswordForm.confirmPassword)
+            .then(() => {
+                handleUserNavigateToSuccesPage()
+                signOut(auth)
+            })
+            .catch((error) => {
+                if (error.code === "auth/requires-recent-login") {
+                    handleUserNavigateToSignInPage()
+                }
+            });
+    }
+
     const handleSetNewPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: newPassword}}) => setResetPasswordForm(prevState => ({...prevState, newPassword}));
     const handleSetConfirmPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: confirmPassword}}) => setResetPasswordForm(prevState => ({...prevState, confirmPassword}));
 
@@ -41,7 +63,7 @@ const ResetPasswordPage: FC<PageProps> = ({ title = "" }) => {
             placeholder: "Confirm your New Password"
         }],
         actionButton: {
-            onSubmit: handleSendLink,
+            onSubmit: handleChangePassword,
             title: "Send Link"
         }
     }

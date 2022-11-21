@@ -12,6 +12,8 @@ import { IRootState } from '../../store';
 import { getPosts } from '../../store/post';
 import { getPostsAction } from '../../store/reducers/postReducer';
 import { setCardsAction } from '../../store/reducers/selectedCardReducer';
+import {useAuth} from "../../hooks/use-Auth";
+import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 
 const Main: FC = () => {
     const [posts, setPosts] = useState<IPostCard[]>([]);
@@ -34,6 +36,7 @@ const Main: FC = () => {
     useEffect(() => {
         setPosts(cards);
     }, [cards])
+
 
     return (
         <PageWrapper>

@@ -6,6 +6,7 @@ import Input from '../Input/Input';
 import styles from "./AuthForm.module.css";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Routes} from "../../../constants/routes";
+import ResetPasswordPage from "../../../pages/ResetPasswordPage/ResetPasswordPage";
 
 export interface IFormProps {
     page?: any
@@ -16,6 +17,7 @@ export interface IFormProps {
     inputs?: InputProps[]
     topText?: string
     disabledButton?: boolean
+    error?: FormElementError
 }
 
 export interface FormElementError {
@@ -40,7 +42,7 @@ const initialFormElementsError: IFormErrors = {
 }
 
 const AuthForm:FC<IFormProps> = ({ inputs= [], topText = "", page, actionButton,
-                                 disabledButton}) => {
+                                 disabledButton, error}) => {
 
     const isSignInPage = useMemo(() => page === Routes.signIn, [page])
     const isSignUpPage = useMemo(() => page === Routes.signUp, [page])
@@ -64,7 +66,9 @@ const AuthForm:FC<IFormProps> = ({ inputs= [], topText = "", page, actionButton,
     return (
         <form className={styles.formWrapper}>
             {!!topText && <p className={styles.topText} dangerouslySetInnerHTML={{__html: topText}}></p>}
+            {error && <p className={styles.topText}>{error.text}</p>}
             {inputs.map(input => <Input className={styles.formInput} key={input.id} {...input} />)}
+            {isSignInPage && <Link to={Routes.resetPasswordEmail}>Forgot password?</Link>}
             <Button
                 disabled={disabledButton}
                 onClick={actionButton.onSubmit}
