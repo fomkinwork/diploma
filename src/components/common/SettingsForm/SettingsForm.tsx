@@ -4,9 +4,10 @@ import styles from './SettingsForm.module.css'
 import {InputProps} from "../../../types/formElements";
 import {FormElementError} from "../AuthForm/AuthForm";
 import Input from "../Input/Input";
+import Button from "../Button/Button";
 
 export interface ISettingsFormProps {
-    actionButton?: {
+    actionButton: {
         title: string,
         onSubmit: () => void
     }
@@ -17,7 +18,7 @@ export interface ISettingsFormProps {
 }
 
 const SettingsForm:FC<ISettingsFormProps> = ({profileInputs=[], passwordInputs=[], topText,
-                                             requestError}) => {
+                                             requestError, actionButton}) => {
     return (
         <form className={styles.formWrapper}>
             <div className={styles.formBlock}>
@@ -37,6 +38,12 @@ const SettingsForm:FC<ISettingsFormProps> = ({profileInputs=[], passwordInputs=[
                 <div className={styles.contentBlock}>
                 </div>
             </div>
+            <Button
+                onClick={actionButton.onSubmit}
+                className={styles.submitButton}
+            >
+                {actionButton.title}
+            </Button>
         </form>
     );
 };

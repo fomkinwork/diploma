@@ -8,8 +8,10 @@ import Tabs from "../../components/common/Tabs/Tabs";
 import {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import {Routes} from "../../constants/routes";
 import SettingsForm, {ISettingsFormProps} from "../../components/common/SettingsForm/SettingsForm";
-import {getAuth} from "firebase/auth";
+import {getAuth, signInWithEmailAndPassword, updatePassword, updateProfile} from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
+import {setUserAction} from "../../store/reducers/userReducer";
+import {handleCatchError} from "../../utils/errorCatcher";
 
 interface ISettingsForm {
     name: string,
@@ -41,7 +43,34 @@ const SettingsPage:FC<PageProps> = () => {
         }}
         , [user])
 
+    const handleSubmitSettingsForm = async () => {
+        if (user !== null) {
+            if (user.displayName !== settingsForm.name) {
+                await updateProfile(user, {
+                    displayName: settingsForm.name
+                }).then(() => {
+                    console.log("Profile updated")
+                }).catch(console.error);
+            } else {
+                console.log("need to change some fields")
+            }
+            if (!!settingsForm.password && !!settingsForm.newPassword &&
+                settingsForm.newPassword === settingsForm.confirmPassword) {
+                await signInWithEmailAndPassword(auth, settingsForm.email, settingsForm.password)
+                    .then(({user}) => {
+                        if (user.uid) {
+                            updatePassword(user, settingsForm.confirmPassword).then(() => {
+                                console.log("Password updated")
+                            }).catch(console.error);
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                console.log("incorrect password")
+            }
+        }
 
+    }
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
         // setSignUpInputError(prevState => ({ ...prevState, email: initialErrorValue }))
@@ -120,10 +149,10 @@ const SettingsPage:FC<PageProps> = () => {
                 // error: signUpInputError.confirmPassword
             }
         ],
-        // actionButton: {
-        //     onSubmit: handleSignIn,
-        //     title: "Sign In"
-        // },
+        actionButton: {
+            onSubmit: handleSubmitSettingsForm,
+            title: "Save"
+        },
         // topText: location.pathname === "/signup/success" ? "Your password has been changed !" : "" ,
         // requestError: signInRequestError
     }

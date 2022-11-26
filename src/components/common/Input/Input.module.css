@@ -24,6 +24,7 @@
 .input {
     padding: 18px 20px;
     font-weight: 400;
+    min-width: 494px;
     width: 100%;
     border: 2px solid transparent;
     background: #323537;
