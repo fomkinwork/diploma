@@ -20,7 +20,6 @@ const AppRouter: FC = () => {
     const getUser = async () => {
         await onAuthStateChanged(auth, (user) => {
             if (user !== null) {
-                console.log(user)
                 dispatch(setUserAction({
                     email: user.email,
                     id: user.uid,

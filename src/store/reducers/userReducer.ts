@@ -9,7 +9,7 @@ interface IUser {
     id: number,
     username?: string | null,
     email: string,
-    token?: string | null,
+    photo?: string | null
 }
 
 interface IInitialState {

@@ -18,6 +18,7 @@ import Content from "../pages/ContentPages/ContentPages";
 import Main from "../pages/Main/Main";
 import ResetPasswordEmailPage from "../pages/ResetPasswordEmailPage/ResetPasswordEmailPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
+import SettingsPage from "../pages/SettingsPage/SettingsPage";
 
 // @ts-ignore
 export interface IRoute extends RouteObject{
@@ -32,7 +33,7 @@ export enum Routes {
     main = "/main",
     content = "/main/:id",
     search = "/search",
-    addPost = "/add-post",
+    settings = "/settings",
     resetPasswordSuccess = "/reset-password/success",
     resetPasswordEmail = "/reset-password",
     resetPassword = "/reset-password/new-password",
@@ -48,11 +49,11 @@ export const PUBLIC_ROUTES: IRoute[] = [
     {path: Routes.resetPassword, Element: ResetPasswordPage, title: "New password"},
     // {path: Routes.signUpConfirmation, Element: SignUpConfirmationPage, title: "Registration confirmation"},
     {path: Routes.resetPasswordSuccess, Element: SignInPage, title: "Success"},
+    {path: Routes.settings, Element: SettingsPage, title: "Settings"},
 ]
 
 export const PRIVATE_ROUTES: IRoute[] = [
     ...PUBLIC_ROUTES,
     // {path: Routes.search, Element: SearchResultsPage},
-    // {path: Routes.addPost, Element: AddPostPage, title: "Add Post"},
 ]
 

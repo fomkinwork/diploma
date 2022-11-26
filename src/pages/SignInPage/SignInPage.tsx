@@ -14,6 +14,8 @@ import {setUserAction} from "../../store/reducers/userReducer";
 import {signInWithCredential} from "@firebase/auth";
 import Button from "../../components/common/Button/Button";
 import {useLocation, useNavigate} from "react-router-dom";
+import {handleCatchError} from "../../utils/errorCatcher";
+import {initialFormElementsError} from "../SignUpPage/SignUpPage";
 
 // import {handleUserSignIn} from "../../store/asyncActions/userActions";
 
@@ -25,17 +27,30 @@ interface ISignInForm {
     password: string
 }
 
+const initialISignInForm = {
+    email: "",
+    password: "",
+}
+
 export interface FormElementError {
     text: string | null
     error: boolean
+}
+
+export interface IFormErrors {
+    name?: FormElementError
+    email?: FormElementError
+    password?: FormElementError
+    confirmPassword?: FormElementError
 }
 
 const initialErrorValue = { text: null, error: false }
 
 // @ts-ignore
 const SignInPage: FC = () => {
-    const [signInForm, setSignInForm] = useState<ISignInForm>({ email: "", password: "" });
-    const [signInError, setSignInError] = useState<FormElementError>(initialErrorValue)
+    const [signInForm, setSignInForm] = useState<ISignInForm>(initialISignInForm);
+    const [signInRequestError, setSignInRequestError] = useState<FormElementError>(initialErrorValue);
+    const [signInInputError, setSignInInputError] = useState<IFormErrors>(initialFormElementsError)
 
     const dispatch = useDispatch();
 
@@ -43,48 +58,50 @@ const SignInPage: FC = () => {
     const location = useLocation();
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
+        setSignInInputError(prevState => ({ ...prevState, email: initialErrorValue }))
         setSignInForm(prevState => ({...prevState, email}));
     }
     const handleSetPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: password }}): void => {
+        setSignInInputError(prevState => ({ ...prevState, password: initialErrorValue }))
         setSignInForm(prevState => ({...prevState, password}));
     }
 
     // const handleUserNavigate = () => navigate(Routes.blog)
 
     const handleSignIn = async () => {
+        setSignInRequestError(initialErrorValue)
+        const isValid = handleFormValidate()
+        if (isValid) {
             const auth = getAuth();
             await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
                 .then(({user}) => {
-                    console.log(user);
                     dispatch(setUserAction({
                         email: user.email,
                         id: user.uid,
                         name: user.displayName
                     }));
-                    setSignInError(initialErrorValue)
+                    setSignInRequestError(initialErrorValue)
+                    setSignInForm(initialISignInForm)
                 })
-                .catch((error)=> {
-                    handleCatchError(error.code)});
+                .catch((error) => {
+                    setSignInRequestError(handleCatchError(error.code))
+                });
+        }
 
         }
 
-        function handleCatchError (error: {}) {
-            switch (error) {
-                case "auth/wrong-password":
-                    setSignInError({ error: true, text: "Неверный пароль" })
-                    break
-                case "auth/user-not-found":
-                    setSignInError({ error: true, text: "Пользователя не существует" })
-                    break
-                case "auth/too-many-requests":
-                    setSignInError({ error: true, text: "Попробуйте войти позже" })
-                    break
-                case "auth/invalid-email":
-                    setSignInError({ error: true, text: "Неверный email" })
-                    break
-                default: setSignInError({ error: true, text: "Что-то пошло не так, попробуйте еще раз" })
+    const handleFormValidate = () => {
+        let isValid = true
+        for (let field in signInForm) {
+            // @ts-ignore
+            if (!signInForm[field]) {
+                // @ts-ignore
+                setSignInInputError(prevState => ({ ...prevState, [field]: { error: true, text: "Required Field is Empty" } }))
+                isValid = false
             }
         }
+        return isValid
+    }
 
     const signInFormConfig: IFormProps = {
         inputs: [
@@ -94,7 +111,8 @@ const SignInPage: FC = () => {
                 name: "userEmail",
                 value: signInForm.email,
                 onChange: handleSetEmail,
-                placeholder: "Enter your Email"
+                placeholder: "Enter your Email",
+                error: signInInputError.email
             },
             {
                 title: "Password",
@@ -103,7 +121,8 @@ const SignInPage: FC = () => {
                 value: signInForm.password,
                 type: "password",
                 onChange: handleSetPassword,
-                placeholder: "Enter your Password"
+                placeholder: "Enter your Password",
+                error: signInInputError.password
             }
         ],
         page: Routes.signIn,
@@ -112,13 +131,12 @@ const SignInPage: FC = () => {
             title: "Sign In"
         },
         topText: location.pathname === "/signup/success" ? "Your password has been changed !" : "" ,
-        error: signInError
+        requestError: signInRequestError
     }
 
     return (
         <div>
             <AuthForm {...signInFormConfig} />
-            {signInError && <div>{signInError.text}</div>}
         </div>
     );
 };

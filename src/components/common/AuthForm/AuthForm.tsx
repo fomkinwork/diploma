@@ -17,7 +17,7 @@ export interface IFormProps {
     inputs?: InputProps[]
     topText?: string
     disabledButton?: boolean
-    error?: FormElementError
+    requestError?: FormElementError
 }
 
 export interface FormElementError {
@@ -42,31 +42,15 @@ const initialFormElementsError: IFormErrors = {
 }
 
 const AuthForm:FC<IFormProps> = ({ inputs= [], topText = "", page, actionButton,
-                                 disabledButton, error}) => {
+                                 disabledButton, requestError}) => {
 
     const isSignInPage = useMemo(() => page === Routes.signIn, [page])
     const isSignUpPage = useMemo(() => page === Routes.signUp, [page])
-
-    const [formFieldsError, setFormFieldsError] = useState<IFormErrors>(initialFormElementsError)
-
-    const handleFormValidate = () => {
-        let isValid = true
-        for (let field in inputs) {
-            // @ts-ignore
-            if (!addPostForm[field]) {
-                // @ts-ignore
-                setFormFieldsError(prevState => ({ ...prevState, [field]: { error: true, text: "Required Field is Empty" } }))
-                isValid = false
-            }
-        }
-
-        return isValid
-    }
     
     return (
         <form className={styles.formWrapper}>
             {!!topText && <p className={styles.topText} dangerouslySetInnerHTML={{__html: topText}}></p>}
-            {error && <p className={styles.topText}>{error.text}</p>}
+            {requestError && <p className={styles.topText}>{requestError.text}</p>}
             {inputs.map(input => <Input className={styles.formInput} key={input.id} {...input} />)}
             {isSignInPage && <Link to={Routes.resetPasswordEmail}>Forgot password?</Link>}
             <Button

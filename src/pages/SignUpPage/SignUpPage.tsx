@@ -6,6 +6,7 @@ import { PageProps } from '../../types/page';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserAction} from "../../store/reducers/userReducer"
+import {handleCatchError} from "../../utils/errorCatcher";
 // import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 //
 // import {Routes} from "../../constants/routes";
@@ -20,14 +21,39 @@ interface ISignUpForm {
     confirmPassword: string
 }
 
+const initialISignUpForm = {
+    name:"",
+    email: "",
+    password: "",
+    confirmPassword: "",
+}
+
+const initialErrorValue =  { text: null, error: false }
+
+export interface FormElementError {
+    text: string | null
+    error: boolean
+}
+
+export interface IFormErrors {
+    name?: FormElementError
+    email?: FormElementError
+    password?: FormElementError
+    confirmPassword?: FormElementError
+}
+
+
+export const initialFormElementsError: IFormErrors = {
+    name: initialErrorValue,
+    email: initialErrorValue,
+    password: initialErrorValue,
+    confirmPassword: initialErrorValue,
+}
 
 const SignUpPage: FC<PageProps> = ({ title = "" }) => {
-    const [signUpForm, setSignUpForm] = useState<ISignUpForm>({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
-    });
+    const [signUpForm, setSignUpForm] = useState<ISignUpForm>(initialISignUpForm);
+    const [signUpRequestError, setSignUpRequestError] = useState<FormElementError>(initialErrorValue)
+    const [signUpInputError, setSignUpInputError] = useState<IFormErrors>(initialFormElementsError)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,24 +62,44 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
     // const handleUserRedirect = () => navigate(`${Routes.signUpConfirmation}?email=${signUpForm.email}`);
 
     const handleSubmit = async () => {
-            const auth = getAuth();
-
-            await createUserWithEmailAndPassword(auth, signUpForm.email, signUpForm.password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    updateProfile(user, {
-                        displayName: signUpForm.name
+        setSignUpRequestError(initialErrorValue)
+        const isValid = handleFormValidate()
+            if (isValid) {
+                const auth = getAuth();
+                await createUserWithEmailAndPassword(auth, signUpForm.email, signUpForm.password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        updateProfile(user, {
+                            displayName: signUpForm.name,
+                        })
+                        dispatch(setUserAction({
+                                email: user.email,
+                                id: user.uid,
+                                username: user.displayName,
+                                photo: user.photoURL
+                            }
+                        ))
+                        setSignUpForm(initialISignUpForm)
                     })
-                    dispatch(setUserAction({
-                        email: user.email,
-                        id: user.uid,
-                        username: user.displayName,
-                    }
-                ))
-            })
-            .catch(console.error);
+                    .catch((error) => setSignUpRequestError(handleCatchError(error.code)));
+                // @ts-ignore
+                await sendEmailVerification(auth.currentUser)
+                    .then((res) => console.log(res))
+                    .catch((error) => setSignUpRequestError(handleCatchError(error.code)))}
+
+    }
+
+    const handleFormValidate = () => {
+        let isValid = true
+        for (let field in signUpForm) {
             // @ts-ignore
-            sendEmailVerification(auth.currentUser)
+            if (!signUpForm[field]) {
+                // @ts-ignore
+                setSignUpInputError(prevState => ({ ...prevState, [field]: { error: true, text: "Required Field is Empty" } }))
+                isValid = false
+            }
+        }
+        return isValid
     }
 
     // @ts-ignore
@@ -63,10 +109,22 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
     },[user])
 
 
-    const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => setSignUpForm(prevState => ({...prevState, email}));
-    const handleSetName: ChangeEventHandler<HTMLInputElement> = ({target: {value: name }}): void => setSignUpForm(prevState => ({...prevState, name}));
-    const handleSetPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: password }}): void => setSignUpForm(prevState => ({...prevState, password}));
-    const handleSetConfirmPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: confirmPassword }}): void => setSignUpForm(prevState => ({...prevState, confirmPassword}));
+    const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
+        setSignUpInputError(prevState => ({ ...prevState, email: initialErrorValue }))
+        setSignUpForm(prevState => ({...prevState, email}))};
+
+    const handleSetName: ChangeEventHandler<HTMLInputElement> = ({target: {value: name }}): void => {
+        setSignUpInputError(prevState => ({ ...prevState, name: initialErrorValue }))
+        setSignUpForm(prevState => ({...prevState, name}))};
+
+    const handleSetPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: password }}): void => {
+        setSignUpInputError(prevState => ({ ...prevState, password: initialErrorValue }))
+        setSignUpForm(prevState => ({...prevState, password}))};
+
+    const handleSetConfirmPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: confirmPassword }})
+        : void => {
+        setSignUpInputError(prevState => ({ ...prevState, confirmPassword: initialErrorValue }))
+        setSignUpForm(prevState => ({...prevState, confirmPassword}))};
 
     const signUpFormConfig: IFormProps = {
         inputs: [
@@ -77,7 +135,8 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
                 value: signUpForm.name,
                 onChange: handleSetName,
                 placeholder: "Enter your Name",
-                required: true
+                required: true,
+                error: signUpInputError.name
             },
             {
                 title: "Email",
@@ -86,7 +145,8 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
                 value: signUpForm.email,
                 onChange: handleSetEmail,
                 placeholder: "Enter your Email",
-                required: true
+                required: true,
+                error: signUpInputError.email
             },
             {
                 title: "Password",
@@ -96,7 +156,7 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
                 onChange: handleSetPassword,
                 type: "password",
                 placeholder: "Enter your Password",
-                required: true
+                error: signUpInputError.password
             },
             {
                 title: "Confirm Password",
@@ -106,7 +166,8 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
                 onChange: handleSetConfirmPassword,
                 type: "password",
                 placeholder: "Confirm your Password",
-                required: true
+                required: true,
+                error: signUpInputError.confirmPassword
             }
         ],
         page: Routes.signUp,
@@ -115,7 +176,8 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
             title: "Sign Up"
         },
         topText: 'Sign Up',
-        disabledButton: false
+        disabledButton: false,
+        requestError: signUpRequestError
     }
 
     return (
