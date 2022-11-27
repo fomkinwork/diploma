@@ -8,7 +8,9 @@
     width: 266px;
     height: 357px;
     border-radius: 5%;
+    position: relative;
 }
+
 .postCardTitle {
     color: #FFFFFF;
     font-family: 'Exo 2';
@@ -25,6 +27,22 @@
     font-family: 'Exo 2';
     font-style: normal;
     font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 290px;
+    text-transform: capitalize;
+}
+
+.postCardRating {
+    position: absolute;
+    color: #FFFFFF;
+    margin: 20px 0 0 20px;
+    padding: 2px 8px;
+    background: #00A340;
+    border-radius: 6px;
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
     font-size: 16px;
     line-height: 24px;
 }

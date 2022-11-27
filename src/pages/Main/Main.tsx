@@ -9,11 +9,12 @@ import Tabs from '../../components/common/Tabs/Tabs';
 import { TABS_CONFIG } from '../../components/common/Tabs/TabsConfig';
 import PostsService from '../../services/postsService';
 import { IRootState } from '../../store';
-import { getPosts } from '../../store/post';
+import { getPosts } from '../../store/AsynsStore/posts';
 import { getPostsAction } from '../../store/reducers/postReducer';
 import { setCardsAction } from '../../store/reducers/selectedCardReducer';
 import {useAuth} from "../../hooks/use-Auth";
 import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
+
 
 const Main: FC = () => {
     const [posts, setPosts] = useState<IPostCard[]>([]);
@@ -36,7 +37,6 @@ const Main: FC = () => {
     useEffect(() => {
         setPosts(cards);
     }, [cards])
-
 
     return (
         <PageWrapper>

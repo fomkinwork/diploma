@@ -6,33 +6,44 @@ import { WithChildren } from "../../../../types/withChildren";
 import styles from './PostCard.module.css'
 
 export interface IPostCard {
-    id: number
-    date: string
-    title: string
-    text: string
-    image?: string
-    onClick?: MouseEventHandler
-    like?: boolean,
-    dislike?: boolean,
-    favorite?: boolean,
-    likes?: number,
-    dislikes?: number
-    author?: number
-    lesson_num?: number
+  countries?:[{
+    country?: string
+  }]
+  genres?: [{
+    genre?: string
+  }] 
+  imdbId?: string
+  kinopoiskId?: number
+  nameEn?: string | null
+  nameOriginal?: string
+  nameRu?: string
+  posterUrl?: string
+  posterUrlPreview?: string
+  ratingImdb?: number
+  ratingKinopoisk?: number
+  type?: string
+  year?: number
 }
 
-const PostCard: FC<IPostCard & WithChildren> = (props) => {
+export interface PostCardProps {
+  postCard: IPostCard
+}
 
-    const { id = 1, title, date, text, image } = props;
+
+const PostCard: FC<PostCardProps> = ({postCard}) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    const handlePostCardOpen = () => navigate(`/main/${id}`);
+    const handlePostCardOpen = () => navigate(`/main/${postCard.kinopoiskId}`);
+
     return(
         <div className={styles.postcardContainer}>
-            <img src={image} alt={title} className={styles.postCardPoster} />
-            <p className={styles.postCardTitle} onClick={handlePostCardOpen}>{title}</p>
-            <p className={styles.postCardGenre}>{text}</p>
+            <img src={postCard.posterUrl} alt={postCard.nameOriginal} className={styles.postCardPoster} />
+            <p className={styles.postCardRating}>{postCard.ratingKinopoisk}</p>
+            <p className={styles.postCardTitle} onClick={handlePostCardOpen}>
+              {!postCard.nameRu?.length ? postCard.nameOriginal : postCard.nameRu}
+            </p>
+            <p className={styles.postCardGenre}>
+              {postCard.genres?.map(genres => genres.genre + ' • ')}</p>
         </div>
     )
 }

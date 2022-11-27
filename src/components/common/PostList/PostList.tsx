@@ -3,20 +3,16 @@ import ContentPostButton from "../ContentPost/ContentPostButton/ContentPostButto
 import PostCard, { IPostCard } from "./PostCard/PostCard";
 
 import styles from './PostList.module.css'
-import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 
 export interface PostListProps {
     postCards: IPostCard[]
 }
 
-const PostList: FC<PostListProps> = ({postCards}) => {
-
+const PostList: FC<PostListProps> = ({ postCards= []} ) => {
     return(
         <div className={styles.postList}>
             <div className={styles.postListContainer}>
-                {postCards
-                    .map((postCard: IPostCard) => <PostCard key={postCard.id} {...postCard} />)
-                }
+                {postCards.map((postCard: IPostCard) => <PostCard key={postCard.kinopoiskId} postCard={postCard} />)}
             </div>
             <ContentPostButton onClick={() => {}} className={styles.postListBtn} children='Show more'/>
         </div>

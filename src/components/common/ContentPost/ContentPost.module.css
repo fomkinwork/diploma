@@ -14,6 +14,10 @@
     border-radius: 20px;
 }
 
+.contentPostInfo {
+    max-width: 878px;
+}
+
 .contentPostInfoGenre {
     font-family: 'Exo 2';
     font-style: normal;
@@ -45,7 +49,7 @@
     padding: 5px 15px;
 }
 
-.contentPostInfoBlockRatingService, .contentPostInfoBlockDuration {
+.contentPostInfoBlockRatingService, .contentPostInfoBlockDuration, .contentPostInfoBlockLengthMovies {
     background: #323537;
     border-radius: 6px;
     margin-right: 28px;
@@ -88,3 +92,44 @@
 .contentPostFrame {
     border-radius: 0 10px 10px 0;
 }
+
+.contentPostInfoBlockLenght {
+    color: #FFFFFF;
+}
+
+.contentPostInfoGenres {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #AFB2B6;
+    text-transform: capitalize;
+}
+
+.contentPostInfoBlockMovie, .contentPostInfoBlockDescription {
+    color: #AFB2B6;
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.contentPostInfoBlockMovie {
+    margin-right: 70px;
+}
+
+.contentPostInfoBlockMovieInfo {
+    color: #FFFFFF;
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.contentPostInfoBlockDate {
+    display: flex;
+}
+

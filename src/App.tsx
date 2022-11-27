@@ -1,15 +1,14 @@
-import React from 'react';
-import './App.css';
+import React, {FC} from 'react';
 import AppRouter from './components/AppRouter/AppRouter';
-import MainWrapper from "./components/common/MainWrapper/MainWrapper";
+import MainWrapper from './components/common/MainWrapper/MainWrapper';
 
-function App() {
+const App: FC = () => {
   return (
-    <div className="App">
+      <div className="App">
         <MainWrapper>
-            <AppRouter/>
+          <AppRouter />
         </MainWrapper>
-    </div>
+      </div>
   );
 }
 
