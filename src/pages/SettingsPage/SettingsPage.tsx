@@ -8,7 +8,7 @@ import Tabs from "../../components/common/Tabs/Tabs";
 import {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import {Routes} from "../../constants/routes";
 import SettingsForm, {ISettingsFormProps} from "../../components/common/SettingsForm/SettingsForm";
-import {getAuth, signInWithEmailAndPassword, updatePassword, updateProfile} from "firebase/auth";
+import {getAuth, sendEmailVerification, signInWithEmailAndPassword, updateEmail, updatePassword, updateProfile} from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserAction} from "../../store/reducers/userReducer";
 import {handleCatchError} from "../../utils/errorCatcher";
@@ -45,31 +45,48 @@ const SettingsPage:FC<PageProps> = () => {
 
     const handleSubmitSettingsForm = async () => {
         if (user !== null) {
-            if (user.displayName !== settingsForm.name) {
-                await updateProfile(user, {
-                    displayName: settingsForm.name
-                }).then(() => {
-                    console.log("Profile updated")
-                }).catch(console.error);
-            } else {
-                console.log("need to change some fields")
-            }
-            if (!!settingsForm.password && !!settingsForm.newPassword &&
-                settingsForm.newPassword === settingsForm.confirmPassword) {
-                await signInWithEmailAndPassword(auth, settingsForm.email, settingsForm.password)
-                    .then(({user}) => {
-                        if (user.uid) {
-                            updatePassword(user, settingsForm.confirmPassword).then(() => {
-                                console.log("Password updated")
-                            }).catch(console.error);
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                console.log("incorrect password")
-            }
+            await handleChangeProfile (user)
+            await handleChangePassword (user)
         }
+    }
 
+    const handleChangeProfile = async (user: any) => {
+        if (user.displayName !== settingsForm.name) {
+            await updateProfile(user, {
+                displayName: settingsForm.name
+            }).then(() => {
+                console.log("Profile updated")
+            }).catch(console.error);
+        } else {
+            console.log("need to change some fields")
+        }
+        if (user.email !== settingsForm.email) {
+            await updateEmail(user, settingsForm.email)
+                .then(() => {
+                    sendEmailVerification(user)
+                        .then(() => {
+                            console.log("Pismo otpravleno")
+                    });
+            }).catch(console.error);
+        }
+    }
+
+    const handleChangePassword = async (user: any) => {
+        if (!!settingsForm.password && !!settingsForm.newPassword &&
+            settingsForm.newPassword === settingsForm.confirmPassword) {
+            await signInWithEmailAndPassword(auth, settingsForm.email, settingsForm.password)
+                .then(({user}) => {
+                    if (user.uid) {
+                        console.log(user.uid)
+                        updatePassword(user, settingsForm.confirmPassword).then(() => {
+                            console.log("Password updated")
+                        }).catch(console.error);
+                    }
+                })
+                .catch(console.error);
+        } else {
+            console.log("incorrect password")
+        }
     }
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
