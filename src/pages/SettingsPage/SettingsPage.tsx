@@ -3,8 +3,8 @@ import React, {ChangeEventHandler, FC, useEffect, useState} from 'react';
 import styles from './SettingsPage.module.css'
 import {PageProps} from "../../types/page";
 import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
-import {TABS_CONFIG} from "../../components/common/Tabs/TabsConfig";
-import Tabs from "../../components/common/Tabs/Tabs";
+import {TABS_CONFIG} from "../../components/common/Aside/Tabs/TabsConfig";
+import Tabs from "../../components/common/Aside/Tabs/Tabs";
 import {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import {Routes} from "../../constants/routes";
 import SettingsForm, {ISettingsFormProps} from "../../components/common/SettingsForm/SettingsForm";

@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
 import PostList from '../../components/common/PostList/PostList';
-import Tabs from '../../components/common/Tabs/Tabs';
-import { TABS_CONFIG } from '../../components/common/Tabs/TabsConfig';
+import Tabs from '../../components/common/Aside/Tabs/Tabs';
+import { TABS_CONFIG } from '../../components/common/Aside/Tabs/TabsConfig';
 import PostsService from '../../services/postsService';
 import { IRootState } from '../../store';
 import { getPosts } from '../../store/AsynsStore/posts';
@@ -40,7 +40,6 @@ const Main: FC = () => {
 
     return (
         <PageWrapper>
-            <Tabs config={TABS_CONFIG} onClick={handleSetActiveTabItem} />
             <PostList postCards={posts}/>
         </PageWrapper>
     );

@@ -7,8 +7,8 @@ import {useParams} from "react-router-dom";
 import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 import ContentPost from "../../components/common/ContentPost/ContentPost";
 
-import Tabs from '../../components/common/Tabs/Tabs';
-import { TABS_CONFIG } from '../../components/common/Tabs/TabsConfig';
+import Tabs from '../../components/common/Aside/Tabs/Tabs';
+import { TABS_CONFIG } from '../../components/common/Aside/Tabs/TabsConfig';
 import { IPostContent, IStaff } from '../../interface';
 import { detailPost, staff } from '../../store/AsynsStore/detailPost';
 import { slider } from '../../store/AsynsStore/slider';
@@ -33,7 +33,6 @@ const Content: FC = () => {
     if (post) {
         return (
             <PageWrapper>
-                <Tabs config={TABS_CONFIG} onClick={() => {}}/>
                 <ContentPost contentPost={post} {...post} postCards={post} staffed={staf}/>
             </PageWrapper>
         );

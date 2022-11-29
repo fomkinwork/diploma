@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
 import {WithChildren} from "../../../types/withChildren";
-import Footer from '../Tabs/Footer/Footer';
+import Footer from '../Aside/Tabs/Footer/Footer';
 
 import styles from "./MainWrapper.module.css";
 
