@@ -1,0 +1,40 @@
+.cardImg {
+    object-fit: cover;
+    max-width: 96px;
+    height: 96px;
+}
+
+.cardContent {
+    display: flex;
+    width: 100%;
+    gap: 32px;
+}
+
+.cardDate {
+    margin: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #8D8E97;
+    padding-bottom: 8px;
+}
+
+.cardTitle {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    color: #313037;
+}
+
+.cardWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 45.5px;
+    padding-bottom: 41px;
+    padding-top: 39.5px;
+    border-bottom: 1px solid #DADADA;
+}
+
+.cardWrapper:first-child {
+    padding-top: 17px;
+}

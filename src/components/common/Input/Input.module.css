@@ -1,0 +1,56 @@
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 16px;
+    position: relative;
+    width: 100%;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.input {
+    padding: 18px 20px;
+    font-weight: 400;
+    min-width: 494px;
+    width: 100%;
+    border: 2px solid transparent;
+    background: #323537;
+    border-radius: 10px;
+}
+
+input:focus,
+input:focus-visible {
+    border: 2px solid #DADADA;
+    outline: unset;
+}
+
+input:disabled {
+
+}
+
+input::placeholder {
+    color: #80858B;
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.errorMessage {
+    color: #FD3419;
+    position: absolute;
+    bottom: -19px;
+}

@@ -2,7 +2,7 @@ export const getPosts = async (handler: any) => {
   const response = await fetch('https://kinopoiskapiunofficial.tech/api/v2.2/films/', {
       method: "GET",
       headers: {
-          'X-API-KEY': 'de275520-e304-476e-9a0d-a973f6702948',
+          'X-API-KEY': '04a2ea85-90da-42e4-9240-0471c2be5d51',
           "Content-Type": "application/json"
       }
   })

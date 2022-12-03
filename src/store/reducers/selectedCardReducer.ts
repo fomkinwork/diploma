@@ -36,7 +36,9 @@ export const selectedCardReducer: Reducer = (state = initialState, action) => {
 
         case SelectedCardActions.UPDATE_CARD:
             const arr = state.cards.map((item: IPostCard) => item);
+
             const oldCard = arr.find((card: IPostCard) => card.kinopoiskId === action.payload.kinopoiskId);
+
             const cardIndex = arr.indexOf(oldCard);
             arr.splice(cardIndex, 1, action.payload);
             return {...state, cards: arr};

@@ -1,0 +1,39 @@
+.userInfoWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 264px;
+    height: 100%;
+    color: #FFFFFF;
+    white-space: nowrap;
+    gap: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.primary {
+    background: #0b5ed7;
+    color: white;
+}
+
+.secondary {
+    background: #6c757d;
+}
+
+.userName {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    min-width: 56px;
+    text-align: center;
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+    transition: 0.3s
+}
+
+/*.userInfoWrapper.arrow {*/
+/*    transform: rotate(90deg);*/
+/*}*/

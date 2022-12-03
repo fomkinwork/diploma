@@ -1,0 +1,40 @@
+.tabItem {
+    border: none;
+    background: none;
+    margin-bottom: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #80858B;
+    transition: 0.3s;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    transition: 0.3s
+}
+
+.tabItem * {
+    margin-right: 20px;
+    color: #80858B;
+    transition: 0.3s
+}
+
+.tabItem.active {
+    color: #7B61FF;
+    fill: #7B61FF
+}
+
+.tabItem.active * {
+    color: #7B61FF;
+    fill: #7B61FF;
+    margin-right: 20px;
+}
+
+.tabItem:hover *, .tabItem:hover {
+    color: #917CFF;
+    fill: #917CFF;
+}
+
+.tabItem svg:first-child {
+    padding-left: 2px;
+}

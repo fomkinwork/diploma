@@ -1,33 +1,41 @@
-.contentPostWrapper {
+.contentWrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     width: 100%;
 }
 
-.contentPostPoster {
+.contentPost {
+    display: flex;
+    justify-content: center;
+}
+
+.contentPoster {
     padding: 0 42px 32px 0;
 }
 
-.contentPostPosterImg {
+.contentPosterImg {
     height: 356px;
     width: 266px;
     border-radius: 20px;
 }
 
-.contentPostInfo {
+.contentDetail {
+    display: flex;
+    flex-direction: column;
     max-width: 878px;
 }
 
-.contentPostInfoGenre {
+.contentGenres {
     font-family: 'Exo 2';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
     color: #AFB2B6;
+    text-transform: capitalize;
 }
 
-.contentPostInfoTitle {
+.contentTitle {
     font-family: 'Exo 2';
     font-style: normal;
     font-weight: 600;
@@ -36,44 +44,71 @@
     color: #FFFFFF;
 }
 
-.contentPostInfoBlock {
+.contentRating {
     display: flex;
-    justify-content: start;
     margin: 24px 0 40px;
 }
 
-.contentPostInfoBlockRating {
-    background: #00A340;
-    border-radius: 6px;
-    margin-right: 28px;
-    padding: 5px 15px;
+.contentInfoBlock {
+    margin: 40px 0 56px;
 }
 
-.contentPostInfoBlockRatingService, .contentPostInfoBlockDuration, .contentPostInfoBlockLengthMovies {
+.contentRatingKinopoisk {
+    background-color: #00A340;
+    border-radius: 6px;
+    padding: 2px 8px;
+    color: #FFFFFF;
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.contentRatingImbd, .contentLength {
     background: #323537;
+    color: #FFFFFF;
+    padding: 2px 8px;
     border-radius: 6px;
-    margin-right: 28px;
-    padding: 5px 15px;
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
 }
 
-.contentPostInfoMovei {
-    margin-bottom: 20px;
+.contentRatingImbd {
+    margin: 0 20px;
+}
+
+.contentRatingImbd img{
+    margin-right: 10px;
+}
+
+.contentDescription, .contentInfoRigthBlock {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.contentInfoBlock {
+    display: flex;
+}
+.contentInfoLeftBlock {
     font-family: 'Exo 2';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     color: #AFB2B6;
-    white-space: nowrap;
+    width: 150px;
 }
 
-.contentPostInfo span {
-    font-weight: 500;
-    color: #FFFFFF;
-}
-
-.contentPostPosterActions {
-    display: flex;
+.contentSlider {
+    align-items: flex-end;
 }
 
 .contentPostMore, .contentPostFrame {
@@ -93,43 +128,50 @@
     border-radius: 0 10px 10px 0;
 }
 
-.contentPostInfoBlockLenght {
-    color: #FFFFFF;
+.contentInfoLeftBlock:not(:last-child) {
+    margin-bottom: 20px;
 }
 
-.contentPostInfoGenres {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #AFB2B6;
-    text-transform: capitalize;
+.contentInfoRigthBlock:not(:last-child) {
+    margin-bottom: 20px;
 }
 
-.contentPostInfoBlockMovie, .contentPostInfoBlockDescription {
-    color: #AFB2B6;
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-}
-
-.contentPostInfoBlockMovie {
-    margin-right: 70px;
-}
-
-.contentPostInfoBlockMovieInfo {
-    color: #FFFFFF;
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-}
-
-.contentPostInfoBlockDate {
+.itemOne, .itemTwo, .itemThee {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.itemOne {
+    background-color: #00A340;
+}
+
+.itemTwo {
+    background-color: #323537;
+}
+
+.itemThee {
+    background-color: #AFB2B6;
+}
+
+.carousel {
+    overflow: hidden;
+    display: flex;
+}
+
+.item1 {
+    background-color: #00A340;
+    color: #FFFFFF;
+}
+
+.item2 {
+    background-color: #666666;
+    color: #FFFFFF;
+}
+
+.item3 {
+    background-color: #123456;
+    color: #FFFFFF;
 }
 

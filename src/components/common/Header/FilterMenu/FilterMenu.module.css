@@ -1,0 +1,106 @@
+.filterContainer{
+    position: absolute;
+    top: -40px;
+    right: -32%;
+    z-index: 2;
+    width: 518px;
+    background-color: #242426;
+    padding: 48px 40px;
+    border-radius: 15px 0 0 15px;
+    color: #FFFFFF;
+}
+
+.activeContainer {
+    right: -100%;
+}
+
+.filterHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filterTitle {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    color: #FFFFFF;
+    margin-bottom: 48px;
+}
+
+.filterNameBlock {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 10px;
+}
+
+.filterSortActions {
+    border-bottom: 1px solid #323537;
+    padding-bottom: 34px;
+}
+
+.filterRating, .filterYear {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 14px 0;
+    width: 50%;
+    color: #80858B;
+    background: none;
+    cursor: pointer;
+    border: 2px solid #323537;
+}
+
+.filterYear {
+    border-radius: 0 10px 10px 0;
+}
+
+.filterRating {
+    border-radius: 10px 0 0 10px;
+}
+
+.active {
+    color: #FFFFFF;
+    background-color: #323537;
+}
+
+.filterMovieNameText, .filterSearhInput {
+    width: 100%;
+    background-color: #323537;
+    border-radius: 10px;
+    padding: 16px 0 16px 20px;
+    border: none;
+}
+
+.filterInput, .filterSortActionsFooter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filterSearhInput {
+    width: 47%;
+}
+
+.filterClear, .filterResult {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background-color: #323537;
+    border: none;
+    padding: 16px;
+    width: 200px;
+}
+
+.filterResult {
+    background-color: #7B61FF;
+}

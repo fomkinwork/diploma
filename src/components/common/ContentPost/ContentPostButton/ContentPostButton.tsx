@@ -7,7 +7,7 @@ export interface PostButtonProps {
     icon?: string
 }
 
-const PostButton: FC<PostButtonProps & WithChildren> = ({ onClick, className, icon, children }) => {
+const ContentPostButton: FC<PostButtonProps & WithChildren> = ({ onClick, className, icon, children }) => {
     return (
         <>
             <button
@@ -21,4 +21,4 @@ const PostButton: FC<PostButtonProps & WithChildren> = ({ onClick, className, ic
     )
 } 
 
-export default PostButton;
+export default ContentPostButton;

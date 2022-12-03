@@ -1,0 +1,32 @@
+.carouselContainer {
+    height: 150px;
+    width: 450px;
+}
+
+.windowCarousel {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.allItemsContainer {
+    display: flex;
+}
+
+.carouselTitle {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    color: #FFFFFF;
+}
+
+.carouselItems {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carouselItems img{
+    cursor: pointer; 
+}

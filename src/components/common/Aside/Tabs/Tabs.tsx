@@ -3,39 +3,40 @@ import Footer from './Footer/Footer';
 
 
 import styles from "./Tabs.module.css";
-import TabItem, { ITabItem } from './TabsItem/TabsItem';
+import TabItem, {ITabItem, TabItemProps} from './TabsItem/TabItem';
+import {useLocation, useNavigate} from "react-router-dom";
 
 interface TabsProps {
     config: ITabItem[]
     onClick: any
 }
 
-const Tabs: FC<TabsProps> = (
+
+const Tabs: FC<TabsProps & TabItemProps> = (
     {
         config= [],
-        onClick = () => {}
+        onClick = () => {},
+        activeTabItem
     }) => {
 
-    if (!Array.isArray(config)){
-        return null
-    }
+    const navigate = useNavigate()
+    const location = useLocation()
+
 
     return (
-        <div className={styles.tabs}>
-            <div>
+        <nav className={styles.tabs}>
             {config.map(tab => (
                 <TabItem
+                    activeTabItem={activeTabItem}
                     className={styles.tabItem}
                     key={tab.id}
                     id={tab.id}
                     title={tab.title}
-                    onClick={onClick}
+                    onClick={() => onClick(tab.id)}
                     icon={tab.icon}
                 />
             ))}
-            </div>            
-            <Footer/>
-        </div>
+        </nav>
     );
 };
 
