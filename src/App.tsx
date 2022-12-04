@@ -5,7 +5,6 @@ import AppRouter from './components/AppRouter/AppRouter';
 import Header from './components/common/Header/Header';
 import MainWrapper from './components/common/MainWrapper/MainWrapper';
 
-
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {useDispatch} from "react-redux";
 import {setUserAction} from "./store/reducers/userReducer";
@@ -48,8 +47,8 @@ const App: FC = () => {
 
   return (
       <div className="App">
+        {!hideHeader && <Header />}
         <MainWrapper>
-            {!hideHeader && <Header />}
             <AppRouter />
         </MainWrapper>
       </div>
