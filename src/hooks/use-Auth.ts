@@ -12,5 +12,4 @@ export function useAuth() {
         photo: user.photo,
         id: user.id,
     };}
-
 }

@@ -1,15 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { Children, cloneElement, FC, useEffect, useState } from "react";
 
 import styles from './Carousel.module.css'
 import { WithChildren } from "../../../../types/withChildren";
 import arrowLeft from '../../../../assets/Arrow-left.svg'
 import arrowRigth from '../../../../assets/Arrow-rigth.svg'
 
-// export interface ICarousel {
-//     onClick?: () => {}
-// }
-
-const PAGE_WIDTH = 400;
+const PAGE_WIDTH = 306;
 
 const Carousel: FC<WithChildren> = ({children}) => {
 
@@ -20,9 +16,7 @@ const Carousel: FC<WithChildren> = ({children}) => {
         setOffset((currentOffset: number) => {
             const newOffset = currentOffset + PAGE_WIDTH
 
-            console.log(newOffset);
-            return newOffset
-            
+            return newOffset        
         })
     }
 
@@ -31,9 +25,7 @@ const Carousel: FC<WithChildren> = ({children}) => {
         setOffset((currentOffset: number) => {
             const newOffset = currentOffset - PAGE_WIDTH
 
-            console.log(newOffset);
-            return newOffset
-            
+            return newOffset         
         })
     }
 
@@ -47,7 +39,7 @@ const Carousel: FC<WithChildren> = ({children}) => {
                 </div>
             </div>
             <div className={styles.windowCarousel}>
-                <div className={styles.allItemsContainer} style={{transform: `translateX(${offset})`}}>{children}</div>
+                <div className={styles.allItemsContainer} style={{transform: `translateX(${offset}px)`}}>{children}</div>
             </div>
         </div>
     )

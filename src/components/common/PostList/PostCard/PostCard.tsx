@@ -10,10 +10,11 @@ export interface IPostCard {
     country?: string
   }]
   genres?: [{
-    genre?: string
+    genre?: any
   }] 
   imdbId?: string
   kinopoiskId?: number
+  filmId?: number
   nameEn?: string | null
   nameOriginal?: string
   nameRu?: string
@@ -23,6 +24,8 @@ export interface IPostCard {
   ratingKinopoisk?: number
   type?: string
   year?: number
+  favorite?: boolean
+  rating?: number
 }
 
 export interface PostCardProps {
@@ -38,12 +41,12 @@ const PostCard: FC<PostCardProps> = ({postCard}) => {
     return(
         <div className={styles.postcardContainer}>
             <img src={postCard.posterUrl} alt={postCard.nameOriginal} className={styles.postCardPoster} />
-            <p className={styles.postCardRating}>{postCard.ratingKinopoisk}</p>
+            <p className={styles.postCardRating}>{!postCard.ratingKinopoisk ? postCard.rating : postCard.ratingKinopoisk}</p>
             <p className={styles.postCardTitle} onClick={handlePostCardOpen}>
               {!postCard.nameRu?.length ? postCard.nameOriginal : postCard.nameRu}
             </p>
             <p className={styles.postCardGenre}>
-              {postCard.genres?.map(genres => genres.genre + ' • ')}</p>
+              {postCard.genres?.map(genres => genres.genre[0].toLocaleUpperCase() + genres.genre?.slice(1)).join(' • ')}</p>
         </div>
     )
 }

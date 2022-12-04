@@ -21,6 +21,12 @@ const Aside: FC = () => {
             case 1:
                 navigate(Routes.main)
                 return
+            case 2:
+                navigate(Routes.trends)
+                return
+            case 3:
+                navigate(Routes.favorites)
+                return
             case 4:
                 navigate(Routes.settings)
                 return
@@ -35,6 +41,10 @@ const Aside: FC = () => {
                 return setActiveTabItem(1)
             case "/settings" :
                 return setActiveTabItem(4)
+            case "/trends" :
+                return setActiveTabItem(2)
+            case "/favorites" :
+                return setActiveTabItem(3)
             default : setActiveTabItem(1)
         }
     }, [location]);

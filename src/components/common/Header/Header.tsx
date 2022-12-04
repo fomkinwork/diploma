@@ -1,4 +1,6 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+
+import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react';
+
 
 import styles from './Header.module.css'
 import {useLocation, useNavigate} from "react-router-dom";
@@ -12,6 +14,7 @@ import DefaultInfo from "./DefaultInfo/DefaultInfo";
 import {setUserAction} from "../../../store/reducers/userReducer";
 import {useDispatch} from "react-redux";
 import FilterMenu from './FilterMenu/FilterMenu';
+
 
 
 const Header: FC  = () => {
@@ -39,24 +42,16 @@ const Header: FC  = () => {
         }).catch(console.error);
     }
 
-
-    // const handlePrimaryButtonClick = () => {
-    //     if (!isAuth) {
-    //         navigate(`${Routes.signIn}`)
-    //     }
-    // }
-
-    // const handleSearch = (event: FormEvent<HTMLFormElement>) => {
-    //     event.preventDefault();
-    //     const formData = new FormData(event.currentTarget);
-    //     navigate(`${Routes.search}?search=${searchQuery}`)
-    //     setSearchQuery("")
-    // }
+    const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        navigate(`${Routes.search}?search=${searchQuery}`)
+        setSearchQuery("")
+    }
 
     return (
         <header className={styles.headerWrapper}>
             <Logo onClick={handleLogoOnClick}/>
-            <Search query={searchQuery} onChange={handleSearchQueryChange} onSubmit={()=>{}}/>
+            <Search query={searchQuery} onChange={handleSearchQueryChange} onSubmit={handleSearch}/>
             {
                 isAuth ? <UserInfo userName={auth?.username} avatarUrl={auth?.photo} onClickLogOut={handleLogOut}
                                 onClick={handleToggleBurgerMenu} isOpen={open}/>

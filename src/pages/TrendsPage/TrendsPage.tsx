@@ -5,14 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
 import PostList from '../../components/common/PostList/PostList';
+import Tabs from '../../components/common/Aside/Tabs/Tabs';
+import { TABS_CONFIG } from '../../components/common/Aside/Tabs/TabsConfig';
+import PostsService from '../../services/postsService';
 import { IRootState } from '../../store';
-import { getPosts } from '../../store/AsynsStore/posts';
+import {getPosts, getTrendsPosts} from '../../store/AsynsStore/posts';
 import { getPostsAction } from '../../store/reducers/postReducer';
 import { setCardsAction } from '../../store/reducers/selectedCardReducer';
+import {useAuth} from "../../hooks/use-Auth";
+import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 
 
-
-const Main: FC = () => {
+const TrendsPage: FC = () => {
     const [posts, setPosts] = useState<IPostCard[]>([]);
     const dispatch = useDispatch();
 
@@ -24,9 +28,7 @@ const Main: FC = () => {
     }
 
     useEffect(() => {
-        if (!cards.length) {
-            getPosts((posts: IPostCard[] ) => setReduxPosts(posts))
-        }
+        getTrendsPosts((posts: IPostCard[] ) => setReduxPosts(posts))
     }, [])
 
     useEffect(() => {
@@ -40,4 +42,4 @@ const Main: FC = () => {
     );
 };
 
-export default Main;
+export default TrendsPage;

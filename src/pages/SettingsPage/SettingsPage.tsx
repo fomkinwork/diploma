@@ -1,17 +1,19 @@
 import React, {ChangeEventHandler, FC, useEffect, useState} from 'react';
 
-import styles from './SettingsPage.module.css'
 import {PageProps} from "../../types/page";
 import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
-import {TABS_CONFIG} from "../../components/common/Aside/Tabs/TabsConfig";
-import Tabs from "../../components/common/Aside/Tabs/Tabs";
-import {IFormProps} from "../../components/common/AuthForm/AuthForm";
-import {Routes} from "../../constants/routes";
 import SettingsForm, {ISettingsFormProps} from "../../components/common/SettingsForm/SettingsForm";
-import {getAuth, sendEmailVerification, signInWithEmailAndPassword, updateEmail, updatePassword, updateProfile} from "firebase/auth";
+import {
+    getAuth,
+    sendEmailVerification,
+    signInWithEmailAndPassword,
+    updateEmail,
+    updatePassword,
+    updateProfile
+} from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserAction} from "../../store/reducers/userReducer";
-import {handleCatchError} from "../../utils/errorCatcher";
+import {setThemeAction, ThemeVariant} from '../../store/reducers/themeReducer';
+
 
 interface ISettingsForm {
     name: string,
@@ -34,7 +36,26 @@ const SettingsPage:FC<PageProps> = () => {
     const auth = getAuth();
     const user = auth.currentUser;
 
+    const dispatch = useDispatch()
+    // @ts-ignore
+    const { theme } = useSelector(state => state.theme)
     const [settingsForm, setSettingsForm] = useState<ISettingsForm>(initialISettingsForm);
+    const [themeState, setThemeState] = useState<ThemeVariant>(theme)
+
+    const handleSetTheme = () => {
+        if (themeState === ThemeVariant.dark) {
+            setThemeState(ThemeVariant.light)
+            dispatch(setThemeAction(themeState))
+        } else {
+            setThemeState(ThemeVariant.dark)
+            dispatch(setThemeAction(themeState))
+        }
+    }
+
+    useEffect(() => {
+        setThemeState(theme)
+    },[])
+
 
     useEffect(() => {
         if (user !== null) {
@@ -170,6 +191,8 @@ const SettingsPage:FC<PageProps> = () => {
             onSubmit: handleSubmitSettingsForm,
             title: "Save"
         },
+        themeSwitcherOnClick: handleSetTheme,
+        condition: themeState === ThemeVariant.dark
         // topText: location.pathname === "/signup/success" ? "Your password has been changed !" : "" ,
         // requestError: signInRequestError
     }

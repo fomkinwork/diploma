@@ -6,7 +6,6 @@
 
 .contentPost {
     display: flex;
-    justify-content: center;
 }
 
 .contentPoster {
@@ -22,7 +21,6 @@
 .contentDetail {
     display: flex;
     flex-direction: column;
-    max-width: 878px;
 }
 
 .contentGenres {
@@ -92,6 +90,7 @@
     font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
+    max-width: 878px;
 }
 
 .contentInfoBlock {
@@ -156,22 +155,6 @@
 }
 
 .carousel {
-    overflow: hidden;
     display: flex;
-}
-
-.item1 {
-    background-color: #00A340;
-    color: #FFFFFF;
-}
-
-.item2 {
-    background-color: #666666;
-    color: #FFFFFF;
-}
-
-.item3 {
-    background-color: #123456;
-    color: #FFFFFF;
 }
 

@@ -43,7 +43,7 @@ export interface IPostContent {
   ],
   genres?: [
     {
-      genre?: string
+      genre?: any
     }
   ],
   startYear?: number,
@@ -51,6 +51,7 @@ export interface IPostContent {
   serial?: boolean,
   shortFilm?: boolean,
   completed?: boolean
+  favorite?: boolean
 }
 
 export interface IInfoFilms {

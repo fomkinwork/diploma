@@ -16,6 +16,7 @@ import Button from "../../components/common/Button/Button";
 import {useLocation, useNavigate} from "react-router-dom";
 import {handleCatchError} from "../../utils/errorCatcher";
 import {initialFormElementsError} from "../SignUpPage/SignUpPage";
+import Logo from "../../components/common/Header/Logo/Logo";
 
 // import {handleUserSignIn} from "../../store/asyncActions/userActions";
 
@@ -54,7 +55,6 @@ const SignInPage: FC = () => {
 
     const dispatch = useDispatch();
 
-    const navigate = useNavigate()
     const location = useLocation();
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
@@ -78,7 +78,8 @@ const SignInPage: FC = () => {
                     dispatch(setUserAction({
                         email: user.email,
                         id: user.uid,
-                        name: user.displayName
+                        username: user.displayName,
+                        photo: user.photoURL
                     }));
                     setSignInRequestError(initialErrorValue)
                     setSignInForm(initialISignInForm)
@@ -136,6 +137,7 @@ const SignInPage: FC = () => {
 
     return (
         <div>
+            <Logo/>
             <AuthForm {...signInFormConfig} />
         </div>
     );

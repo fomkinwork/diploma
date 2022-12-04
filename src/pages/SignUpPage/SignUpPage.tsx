@@ -7,6 +7,7 @@ import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateP
 import {useDispatch, useSelector} from "react-redux";
 import {setUserAction} from "../../store/reducers/userReducer"
 import {handleCatchError} from "../../utils/errorCatcher";
+import Logo from "../../components/common/Header/Logo/Logo";
 // import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 //
 // import {Routes} from "../../constants/routes";
@@ -182,6 +183,7 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
 
     return (
         <div>
+            <Logo/>
             <AuthForm {...signUpFormConfig} />
         </div>
     );

@@ -1,11 +1,4 @@
-.carouselContainer {
-    height: 150px;
-    width: 450px;
-}
-
 .windowCarousel {
-    height: 100%;
-    width: 100%;
     overflow: hidden;
 }
 
@@ -25,6 +18,7 @@
 .carouselItems {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 40px;
 }
 
 .carouselItems img{

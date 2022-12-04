@@ -12,7 +12,10 @@ const PostList: FC<PostListProps> = ({ postCards= []} ) => {
     return(
         <div className={styles.postList}>
             <div className={styles.postListContainer}>
-                {postCards.map((postCard: IPostCard) => <PostCard key={postCard.kinopoiskId} postCard={postCard} />)}
+                {postCards
+                    .map((postCard: IPostCard) => 
+                        <PostCard key={postCard.filmId || postCard.kinopoiskId} postCard={postCard} />)
+                }
             </div>
             <ContentPostButton onClick={() => {}} className={styles.postListBtn} children='Show more'/>
         </div>

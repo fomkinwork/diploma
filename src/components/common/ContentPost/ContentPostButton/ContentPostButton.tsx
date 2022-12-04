@@ -4,10 +4,15 @@ import { WithChildren } from "../../../../types/withChildren";
 export interface PostButtonProps {
     onClick?: MouseEventHandler,
     className?: string,
-    icon?: string
+    icon?: string,
 }
 
-const ContentPostButton: FC<PostButtonProps & WithChildren> = ({ onClick, className, icon, children }) => {
+const PostButton: FC<PostButtonProps & WithChildren> = ({
+    onClick, 
+    className, 
+    icon,
+    children
+}) => {
     return (
         <>
             <button
@@ -21,4 +26,4 @@ const ContentPostButton: FC<PostButtonProps & WithChildren> = ({ onClick, classN
     )
 } 
 
-export default ContentPostButton;
+export default PostButton;

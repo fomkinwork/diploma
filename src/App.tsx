@@ -1,13 +1,21 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import React, {FC, useEffect} from 'react';
-import { useDispatch } from 'react-redux';
+
+import React, {FC, useEffect, useMemo} from 'react';
+
 import AppRouter from './components/AppRouter/AppRouter';
 import Header from './components/common/Header/Header';
 import MainWrapper from './components/common/MainWrapper/MainWrapper';
-import { setUserAction } from './store/reducers/userReducer';
+
+
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {useDispatch} from "react-redux";
+import {setUserAction} from "./store/reducers/userReducer";
+import {useLocation} from "react-router-dom";
+import {Routes} from "./constants/routes";
+import "./App.css";
 
 const App: FC = () => {
-  const dispatch = useDispatch();
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const auth = getAuth();
@@ -22,11 +30,28 @@ const App: FC = () => {
             }
         });
     },)
+
+
+    const { pathname } = useLocation()
+
+    const hideHeader = useMemo(() => {
+        switch (pathname) {
+            case Routes["signIn"]:
+            case Routes["signUp"]:
+            case Routes["resetPassword"]:
+            case Routes["resetPasswordSuccess"]:
+            case Routes["resetPasswordEmail"]:
+                return true
+            default:
+                return false
+        }
+    }, [pathname])
+
   return (
       <div className="App">
         <MainWrapper>
-          <Header />
-          <AppRouter />
+            {!hideHeader && <Header />}
+            <AppRouter />
         </MainWrapper>
       </div>
   );
