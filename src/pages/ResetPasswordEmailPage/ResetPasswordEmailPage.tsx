@@ -8,9 +8,12 @@ import AuthForm, {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import {useNavigate} from "react-router-dom";
 import {getAuth, sendPasswordResetEmail} from "firebase/auth";
 import Logo from "../../components/common/Header/Logo/Logo";
+import AuthWrapper from "../../components/common/AuthWrapper/AuthWrapper";
 
 const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
     const navigate = useNavigate();
+
+    const handleLogoOnClick = () => navigate(Routes.main)
 
     const [email, setEmail] = useState<string>("")
 
@@ -43,14 +46,14 @@ const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
         actionButton: {
             onSubmit: handleSendPasswordResetEmail,
             title: "Send Link"
-        }
+        },
+        title: "Reset Password"
     }
 
     return (
-        <div>
-            <Logo/>
+        <AuthWrapper>
             <AuthForm {...resetPasswordEmailFormConfig} />
-        </div>
+        </AuthWrapper>
     );
 };
 

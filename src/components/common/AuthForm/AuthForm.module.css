@@ -3,7 +3,6 @@
     max-width: 574px;
     width: 100%;
     max-height: 732px;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: baseline;
@@ -12,12 +11,19 @@
     padding: 40px;
     background: #242426;
     border-radius: 10px;
+    z-index: 3;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    color: #fff;
 }
 
 .topText {
     margin-bottom: 40px;
     color: #FFFFFF;
-    font-family: 'Exo 2';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -25,9 +31,9 @@
 }
 
 .forgotPassword {
-    color: #313037;
     font-size: 16px;
-    text-decoration: unset;
+    text-decoration: none;
+    color: #80858B;
 }
 
 .formInput + .formInput {
@@ -36,7 +42,7 @@
 
 .submitButton {
     width: 100%;
-    margin-top: 48px;
+    margin-top: 32px;
 }
 
 .formWrapper label + label {
@@ -60,5 +66,13 @@
 }
 
 .text a {
-    color: #2231AA;
+    color:#7B61FF;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.link {
+    text-decoration: none;
+    color:#7B61FF
 }

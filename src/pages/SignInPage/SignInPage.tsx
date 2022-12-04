@@ -17,6 +17,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {handleCatchError} from "../../utils/errorCatcher";
 import {initialFormElementsError} from "../SignUpPage/SignUpPage";
 import Logo from "../../components/common/Header/Logo/Logo";
+import AuthWrapper from "../../components/common/AuthWrapper/AuthWrapper";
 
 // import {handleUserSignIn} from "../../store/asyncActions/userActions";
 
@@ -56,6 +57,8 @@ const SignInPage: FC = () => {
     const dispatch = useDispatch();
 
     const location = useLocation();
+    const navigate = useNavigate()
+    const handleLogoOnClick = () => navigate(Routes.main)
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
         setSignInInputError(prevState => ({ ...prevState, email: initialErrorValue }))
@@ -132,14 +135,14 @@ const SignInPage: FC = () => {
             title: "Sign In"
         },
         topText: location.pathname === "/signup/success" ? "Your password has been changed !" : "" ,
-        requestError: signInRequestError
+        requestError: signInRequestError,
+        title: "Sign In"
     }
 
     return (
-        <div>
-            <Logo/>
+        <AuthWrapper>
             <AuthForm {...signInFormConfig} />
-        </div>
+        </AuthWrapper>
     );
 };
 

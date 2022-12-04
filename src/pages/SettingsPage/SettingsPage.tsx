@@ -38,23 +38,24 @@ const SettingsPage:FC<PageProps> = () => {
 
     const dispatch = useDispatch()
     // @ts-ignore
-    const { theme } = useSelector(state => state.theme)
+
     const [settingsForm, setSettingsForm] = useState<ISettingsForm>(initialISettingsForm);
-    const [themeState, setThemeState] = useState<ThemeVariant>(theme)
+    const [themeState, setThemeState] = useState<ThemeVariant>()
 
     const handleSetTheme = () => {
-        if (themeState === ThemeVariant.dark) {
-            setThemeState(ThemeVariant.light)
-            dispatch(setThemeAction(themeState))
-        } else {
-            setThemeState(ThemeVariant.dark)
-            dispatch(setThemeAction(themeState))
-        }
+        // if (themeState === ThemeVariant.dark) {
+        //     setThemeState(ThemeVariant.light)
+        //     dispatch(setThemeAction(theme))
+        //     console.log(theme)
+        // } else {
+        //     setThemeState(ThemeVariant.dark)
+        //     dispatch(setThemeAction(theme))
+        // }
     }
 
-    useEffect(() => {
-        setThemeState(theme)
-    },[])
+    // useEffect(() => {
+    //     setThemeState(theme)
+    // },[])
 
 
     useEffect(() => {

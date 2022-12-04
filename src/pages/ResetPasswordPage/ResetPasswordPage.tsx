@@ -9,6 +9,7 @@ import {Routes} from "../../constants/routes";
 import {getAuth, sendPasswordResetEmail, signOut, updatePassword} from "firebase/auth";
 import {useNavigate} from "react-router-dom";
 import Logo from "../../components/common/Header/Logo/Logo";
+import AuthWrapper from "../../components/common/AuthWrapper/AuthWrapper";
 
 interface IResetPasswordForm {
     newPassword: string,
@@ -25,6 +26,7 @@ const ResetPasswordPage: FC<PageProps> = ({ title = "" }) => {
     const auth = getAuth()
     const user = auth.currentUser
 
+    const handleLogoOnClick = () => navigate(Routes.main)
     const handleUserNavigateToSuccesPage = () => navigate(Routes.resetPasswordSuccess)
     const handleUserNavigateToSignInPage = () => navigate(Routes.signIn)
 
@@ -66,14 +68,15 @@ const ResetPasswordPage: FC<PageProps> = ({ title = "" }) => {
         actionButton: {
             onSubmit: handleChangePassword,
             title: "Send Link"
-        }
+        },
+        title: "New Password"
     }
 
     return (
-        <div title={title}>
-            <Logo/>
+        <AuthWrapper>
+            <Logo onClick={handleLogoOnClick}/>
             <AuthForm {...resetPasswordFormConfig} />
-        </div>
+        </AuthWrapper>
     );
 };
 

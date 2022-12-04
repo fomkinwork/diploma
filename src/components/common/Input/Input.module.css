@@ -33,7 +33,7 @@
 
 input:focus,
 input:focus-visible {
-    border: 2px solid #DADADA;
+    border: 2px solid #7B61FF;
     outline: unset;
 }
 
