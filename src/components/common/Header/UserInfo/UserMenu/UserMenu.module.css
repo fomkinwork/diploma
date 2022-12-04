@@ -1,0 +1,44 @@
+.menuWrapper {
+    position: absolute;
+    top: 62px;
+    left: 0;
+    min-width: 267px;
+    min-height: 112px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #242426;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    transition: 0.5s;
+}
+
+.navigateButton {
+    padding-left: 20px;
+    width: 100%;
+    height: 133px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #323537;
+}
+
+.logOutButton {
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 133px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #7B61FF;
+    cursor: pointer;
+}

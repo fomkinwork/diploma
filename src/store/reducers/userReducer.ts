@@ -5,11 +5,11 @@ enum UserActions {
 }
 
 
-interface IUser {
-    id: number,
-    username?: string | null,
-    email: string,
-    photo?: string | null
+export interface IUser {
+    id: number | null,
+    username: any
+    email: string | null,
+    photo: any
 }
 
 interface IInitialState {

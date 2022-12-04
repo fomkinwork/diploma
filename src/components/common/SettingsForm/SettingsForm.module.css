@@ -8,7 +8,6 @@
     /*padding-left: calc(147px + 220px);*/
     /*padding-right: calc(147px + 220px);*/
     gap: 40px;
-    padding-top: 56px;
 }
 
 .contentBlock {
@@ -33,4 +32,41 @@
 
 .contentBlock div {
     max-width: 533px;
+}
+
+.contentBlock input {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.themeTopText {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.themeText {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #AFB2B6;
+}
+
+.contentBlockTheme {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: center;
+    background: #242426;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.textBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }

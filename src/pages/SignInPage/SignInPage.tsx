@@ -54,7 +54,6 @@ const SignInPage: FC = () => {
 
     const dispatch = useDispatch();
 
-    const navigate = useNavigate()
     const location = useLocation();
 
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
@@ -78,7 +77,8 @@ const SignInPage: FC = () => {
                     dispatch(setUserAction({
                         email: user.email,
                         id: user.uid,
-                        name: user.displayName
+                        username: user.displayName,
+                        photo: user.photoURL
                     }));
                     setSignInRequestError(initialErrorValue)
                     setSignInForm(initialISignInForm)

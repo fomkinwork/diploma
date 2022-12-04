@@ -13,6 +13,7 @@ import Slider from "./Slider/Slider";
 import { useParams } from "react-router-dom";
 import { slider } from "../../../store/AsynsStore/slider";
 import { staff } from "../../../store/AsynsStore/detailPost";
+import {updateCardAction} from "../../../store/reducers/selectedCardReducer";
 
 export interface ContentPostProps {
     contentPost: IPostContent
@@ -23,10 +24,9 @@ export interface ContentPostProps {
 const ContentPost: FC<ContentPostProps> = ({contentPost, postCards, staffed}) => {
 
     const {id = 1} = useParams();
-
+    const dispatch = useDispatch();
     const [post, setPost] = useState<IPostContent | null>(null);
-    const [postSlider, setPostSlider] = useState<IPostContent[]>([]);  
-
+    const [postSlider, setPostSlider] = useState<IPostContent[]>([]);
     // @ts-ignore
     const {cards} = useSelector(state => state.selectedCard)
 
@@ -36,6 +36,11 @@ const ContentPost: FC<ContentPostProps> = ({contentPost, postCards, staffed}) =>
         slider(setPostSlider, +id)
     }, [cards])
 
+    const handleAddToFavoritePost = () => {
+        // @ts-ignore
+        dispatch(updateCardAction({...post, favorite: !post.favorite}));
+    }
+
     return(
         <div className={styles.contentPostWrapper}>
             <div className={styles.contentPostPoster}>
@@ -44,7 +49,8 @@ const ContentPost: FC<ContentPostProps> = ({contentPost, postCards, staffed}) =>
                     alt={contentPost.nameOriginal}  
                     className={styles.contentPostPosterImg}/>
                 <div className={styles.contentPostPosterActions}>
-                    <PostButton className={styles.contentPostMore} icon={more} />
+                    <PostButton active={post?.favorite} onClick={handleAddToFavoritePost}
+                                className={styles.contentPostMore} icon={more} />
                     <PostButton className={styles.contentPostFrame} icon={frame} />
                 </div>
             </div>

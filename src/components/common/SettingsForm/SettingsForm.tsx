@@ -5,20 +5,24 @@ import {InputProps} from "../../../types/formElements";
 import {FormElementError} from "../AuthForm/AuthForm";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import ThemeSwitcher from "./ThemeSwitcher/ThemeSwitcher";
 
 export interface ISettingsFormProps {
     actionButton: {
         title: string,
-        onSubmit: () => void
+        onSubmit: () => {}
     }
     profileInputs?: InputProps[]
     passwordInputs?: InputProps[]
     topText?: string
     requestError?: FormElementError
+    themeSwitcherOnClick?: any
+    condition?: any
 }
 
 const SettingsForm:FC<ISettingsFormProps> = ({profileInputs=[], passwordInputs=[], topText,
-                                             requestError, actionButton}) => {
+                                             requestError, actionButton,
+                                             themeSwitcherOnClick, condition}) => {
     return (
         <form className={styles.formWrapper}>
             <div className={styles.formBlock}>
@@ -35,7 +39,12 @@ const SettingsForm:FC<ISettingsFormProps> = ({profileInputs=[], passwordInputs=[
             </div>
             <div className={styles.formBlock}>
                 <p className={styles.topText}>Color mode</p>
-                <div className={styles.contentBlock}>
+                <div className={styles.contentBlockTheme}>
+                    <div className={styles.textBlock}>
+                        <span className={styles.themeTopText}>Dark</span>
+                        <span className={styles.themeText}>Use dark theme</span>
+                    </div>
+                    <ThemeSwitcher onClick={themeSwitcherOnClick} condition={condition}/>
                 </div>
             </div>
             <Button

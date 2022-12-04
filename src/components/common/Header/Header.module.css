@@ -1,0 +1,9 @@
+.headerWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0 56px 0;
+    width: 100%;
+    height: 56px;
+    gap: 40px;
+}

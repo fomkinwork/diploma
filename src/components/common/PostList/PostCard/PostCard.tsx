@@ -14,6 +14,7 @@ export interface IPostCard {
   }] 
   imdbId?: string
   kinopoiskId?: number
+  filmId?: number
   nameEn?: string | null
   nameOriginal?: string
   nameRu?: string
@@ -23,6 +24,7 @@ export interface IPostCard {
   ratingKinopoisk?: number
   type?: string
   year?: number
+  favorite?: boolean
 }
 
 export interface PostCardProps {

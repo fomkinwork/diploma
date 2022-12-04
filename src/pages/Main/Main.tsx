@@ -9,7 +9,7 @@ import Tabs from '../../components/common/Aside/Tabs/Tabs';
 import { TABS_CONFIG } from '../../components/common/Aside/Tabs/TabsConfig';
 import PostsService from '../../services/postsService';
 import { IRootState } from '../../store';
-import { getPosts } from '../../store/AsynsStore/posts';
+import {getPosts, getSearchPosts} from '../../store/AsynsStore/posts';
 import { getPostsAction } from '../../store/reducers/postReducer';
 import { setCardsAction } from '../../store/reducers/selectedCardReducer';
 import {useAuth} from "../../hooks/use-Auth";
@@ -20,9 +20,6 @@ const Main: FC = () => {
     const [posts, setPosts] = useState<IPostCard[]>([]);
     const dispatch = useDispatch();
 
-    const [activeTabItem, setActiveTabItem] = useState<number>(TABS_CONFIG[0].id);
-    const handleSetActiveTabItem = (id: number) => setActiveTabItem(id);
-
     const { cards } = useSelector((state: IRootState) => state.selectedCard);
 
     const setReduxPosts = (payload: IPostCard[]) => {
@@ -31,7 +28,9 @@ const Main: FC = () => {
     }
 
     useEffect(() => {
-        getPosts((posts: IPostCard[] ) => setReduxPosts(posts))
+        if (!cards.length) {
+            getPosts((posts: IPostCard[] ) => setReduxPosts(posts))
+        }
     }, [])
 
     useEffect(() => {

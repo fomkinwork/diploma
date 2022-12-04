@@ -51,6 +51,7 @@ export interface IPostContent {
   serial?: boolean,
   shortFilm?: boolean,
   completed?: boolean
+  favorite?: boolean
 }
 
 export interface IInfoPost {

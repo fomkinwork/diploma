@@ -4,10 +4,12 @@ import { WithChildren } from "../../../../types/withChildren";
 export interface PostButtonProps {
     onClick?: MouseEventHandler,
     className?: string,
-    icon?: string
+    icon?: string,
+    active?: boolean
 }
 
-const PostButton: FC<PostButtonProps & WithChildren> = ({ onClick, className, icon, children }) => {
+const PostButton: FC<PostButtonProps & WithChildren> = ({ onClick, className, icon,
+                                                            children , active}) => {
     return (
         <>
             <button
