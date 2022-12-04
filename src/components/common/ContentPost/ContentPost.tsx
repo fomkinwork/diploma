@@ -9,13 +9,14 @@ import { IPostContent } from '../../../interface'
 import ContentPostButton from "./ContentPostButton/ContentPostButton";
 import Carousel from "./Carousel/Carousel";
 import PostCard, { IPostCard } from "../PostList/PostCard/PostCard";
+import { getPosts } from "../../../store/AsynsStore/posts";
 
 export interface ContentPostProps {
     contentPost: IPostContent
     postCards: IPostCard[]
 }
 
-const ContentPost: FC<ContentPostProps> = ({contentPost, postCards=[]}) => {
+const ContentPost: FC<ContentPostProps> = ({contentPost, postCards}) => {
 
     return(
         <div className={styles.contentWrapper}>
@@ -28,7 +29,7 @@ const ContentPost: FC<ContentPostProps> = ({contentPost, postCards=[]}) => {
                     </div>
                 </div>
                 <div className={styles.contentDetail}>
-                    <p className={styles.contentGenres}>{contentPost.genres?.map(genre => genre.genre)}</p>
+                    <p className={styles.contentGenres}>{contentPost.genres?.map(genres => genres.genre[0].toLocaleUpperCase() + genres.genre?.slice(1)).join(' • ')}</p>
                     <h3 className={styles.contentTitle}>{!contentPost.nameRu?.length ? contentPost.nameOriginal : contentPost.nameRu}</h3>
                     <div className={styles.contentRating}>
                         <p className={styles.contentRatingKinopoisk}>{contentPost.ratingKinopoisk}</p>
@@ -61,21 +62,18 @@ const ContentPost: FC<ContentPostProps> = ({contentPost, postCards=[]}) => {
                             <p className={styles.contentInfoRigthBlock}>{contentPost.year}</p>
                             <p className={styles.contentInfoRigthBlock}>{contentPost.year}</p>
                             <p className={styles.contentInfoRigthBlock}>$381,409,310</p>
-                            <p className={styles.contentInfoRigthBlock}>{contentPost.countries?.map(country => country.country)}</p>
+                            <p className={styles.contentInfoRigthBlock}>{contentPost.countries?.map(country => country.country?.replace('', ' '))}</p>
                             <p className={styles.contentInfoRigthBlock}>Heyday Films, Moving Picture Company, Warner Bros.</p>
                             <p className={styles.contentInfoRigthBlock}>Daniel Radcliffe, Emma Watson, Rupert Grint</p>
                             <p className={styles.contentInfoRigthBlock}>David Yates</p>
                             <p className={styles.contentInfoRigthBlock}>J.K. Rowling, Steve Kloves</p>
                         </div>
                     </div>
-                    <Carousel>
-                        <div className={styles.carousel}>
-                            {/* {postCards.map((postCard: IPostCard) => <PostCard key={postCard.kinopoiskId} postCard={postCard} />)} */}
-                            <div className={styles.item1}>item1</div>
-                            <div className={styles.item2}>item2</div>
-                            <div className={styles.item3}>item3</div>
-                        </div>
-                    </Carousel>
+            <Carousel>
+                <div className={styles.carousel}>
+                    {postCards.map((postCard: IPostCard) => <PostCard key={postCard.kinopoiskId} postCard={postCard} />)}
+                </div>
+            </Carousel>
                 </div>
             </div>
         </div>

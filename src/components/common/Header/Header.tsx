@@ -18,6 +18,7 @@ import {ThemeVariant, useTheme} from "../../../context/ThemeContext";
 
 
 
+
 const Header: FC  = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [open, setOpen] = useState<boolean>(false);

@@ -43,7 +43,7 @@ export interface IPostContent {
   ],
   genres?: [
     {
-      genre?: string
+      genre?: any
     }
   ],
   startYear?: number,

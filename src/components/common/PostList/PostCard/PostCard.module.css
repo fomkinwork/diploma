@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     margin: 0 20px 30px 20px;
+    max-width: 266px;
 }
 
 .postCardPoster {
@@ -29,7 +30,6 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    max-width: 290px;
     text-transform: capitalize;
 }
 

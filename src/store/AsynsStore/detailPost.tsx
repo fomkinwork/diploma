@@ -1,4 +1,4 @@
-export const detailPost = async (id: number, handler: any) => {
+export const getDetailPost = async (id: number, handler: any) => {
     const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}/`, {
         method: "GET",
         headers: {
