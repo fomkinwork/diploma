@@ -21,6 +21,7 @@ export interface InputProps extends FormElementProps{
     type?: HTMLInputTypeAttribute,
     onChange?: ChangeEventHandler<HTMLInputElement>
     onSelect?: ReactEventHandler<HTMLInputElement>
+    theme?: string
 }
 
 export interface TextAreaProps extends FormElementProps{

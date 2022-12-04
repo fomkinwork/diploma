@@ -12,7 +12,7 @@ import {
     updateProfile
 } from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
-import {setThemeAction, ThemeVariant} from '../../store/reducers/themeReducer';
+import {ThemeVariant, useTheme} from "../../context/ThemeContext";
 
 
 interface ISettingsForm {
@@ -38,24 +38,13 @@ const SettingsPage:FC<PageProps> = () => {
 
     const dispatch = useDispatch()
     // @ts-ignore
-
     const [settingsForm, setSettingsForm] = useState<ISettingsForm>(initialISettingsForm);
-    const [themeState, setThemeState] = useState<ThemeVariant>()
+
+    const {theme, setTheme} = useTheme()
 
     const handleSetTheme = () => {
-        // if (themeState === ThemeVariant.dark) {
-        //     setThemeState(ThemeVariant.light)
-        //     dispatch(setThemeAction(theme))
-        //     console.log(theme)
-        // } else {
-        //     setThemeState(ThemeVariant.dark)
-        //     dispatch(setThemeAction(theme))
-        // }
-    }
-
-    // useEffect(() => {
-    //     setThemeState(theme)
-    // },[])
+        theme === ThemeVariant.dark ? setTheme(ThemeVariant.light) : setTheme(ThemeVariant.dark)
+    };
 
 
     useEffect(() => {
@@ -72,8 +61,12 @@ const SettingsPage:FC<PageProps> = () => {
         }
     }
 
+    const handleCancelForm = () => {
+        setSettingsForm(initialISettingsForm)
+    }
+
     const handleChangeProfile = async (user: any) => {
-        if (user.displayName !== settingsForm.name) {
+        if (user.displayName !== settingsForm.name && settingsForm.name.length > 2){
             await updateProfile(user, {
                 displayName: settingsForm.name
             }).then(() => {
@@ -188,12 +181,17 @@ const SettingsPage:FC<PageProps> = () => {
                 // error: signUpInputError.confirmPassword
             }
         ],
-        actionButton: {
+        actionButtonCancel: {
+            onCancel: handleCancelForm,
+            title: "Cancel",
+        },
+        actionButtonSave: {
             onSubmit: handleSubmitSettingsForm,
             title: "Save"
         },
         themeSwitcherOnClick: handleSetTheme,
-        condition: themeState === ThemeVariant.dark
+        condition: theme === ThemeVariant.dark,
+        theme: theme
         // topText: location.pathname === "/signup/success" ? "Your password has been changed !" : "" ,
         // requestError: signInRequestError
     }

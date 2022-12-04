@@ -59,7 +59,6 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const handleLogoOnClick = () => navigate(Routes.main)
 
     // const handleUserRedirect = () => navigate(`${Routes.signUpConfirmation}?email=${signUpForm.email}`);
 

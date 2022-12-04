@@ -16,7 +16,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null)
 const ThemeProvider: FC<WithChildren> = ({ children }) =>  {
     const activeTheme = localStorage.getItem("theme");
 
-    const [theme, setTheme] = useState(activeTheme || ThemeVariant.light);
+    const [theme, setTheme] = useState(activeTheme || ThemeVariant.dark);
 
     const handleSetTheme = (newTheme: string) => { setTheme(newTheme) }
 

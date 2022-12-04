@@ -19,6 +19,12 @@
     font-size: 18px;
 }
 
+.searchDarkInput {
+    color: #000000;
+    background: #FFFFFF;
+    border: 2px solid #AFB2B6;
+}
+
 .searchInput::placeholder {
     color: #80858B;
     opacity: 0.5;

@@ -15,8 +15,10 @@
 }
 
 .primary {
+    width: 266px;
     background: #7B61FF;
     border-radius: 10px;
+    color: #FFFFFF;
 }
 
 .primary:hover {
@@ -24,14 +26,13 @@
 }
 
 .secondary {
-    background: #E8E8E8;
-    color: #313037;
+    width: 266px;
+    background: #323537;
+    color: #FFFFFF;
+    border-radius: 10px;
+
 }
 
 .secondary:hover {
-    background: #DADADA;
-}
-
-.btn + .btn {
-    margin-top: 20px;
+    color: #AFB2B6
 }

@@ -28,6 +28,10 @@
     text-align: center;
 }
 
+.userNameDark {
+    color: #242426!important;
+}
+
 .arrow {
     display: flex;
     align-items: center;

@@ -15,7 +15,7 @@ import { slider } from '../../store/AsynsStore/slider';
 import { IInfoFilms,} from '../../interface';
 import { infoFiims } from '../../store/AsynsStore/detailPost';
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
-import { getPosts } from '../../store/post';
+import { getPosts } from '../../store/AsynsStore/posts';
 
 const Content: FC = () => {
 

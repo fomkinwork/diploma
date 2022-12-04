@@ -2,7 +2,7 @@ export const detailPost = async (id: number, handler: any) => {
     const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}/`, {
         method: "GET",
         headers: {
-            'X-API-KEY': '04a2ea85-90da-42e4-9240-0471c2be5d51',
+            'X-API-KEY': 'abd02b1b-dde9-46ba-8064-05bb7110fda3',
             "Content-Type": "application/json"
         }
     })
@@ -16,7 +16,7 @@ export const infoFiims = async (id: number, handler: any) => {
     const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}/box_office/`, {
         method: "GET",
         headers: {
-            'X-API-KEY': '04a2ea85-90da-42e4-9240-0471c2be5d51',
+            'X-API-KEY': 'abd02b1b-dde9-46ba-8064-05bb7110fda3',
             "Content-Type": "application/json"
         }
     })

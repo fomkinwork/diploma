@@ -29,10 +29,8 @@ const Main: FC = () => {
     }
 
     useEffect(() => {
-        if (!cards.length) {
             getPosts((posts: IPostCard[] ) => setReduxPosts(posts))
-        }
-    }, [])
+    },[] )
 
     useEffect(() => {
         setPosts(cards);

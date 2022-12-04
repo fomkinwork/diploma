@@ -71,3 +71,14 @@
     flex-direction: column;
     gap: 4px;
 }
+
+.buttonsBlock {
+    height: 56px;
+    gap: 40px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contentBlockWhite {
+    background: #666666;
+}

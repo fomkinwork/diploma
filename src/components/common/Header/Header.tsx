@@ -14,6 +14,7 @@ import DefaultInfo from "./DefaultInfo/DefaultInfo";
 import {setUserAction} from "../../../store/reducers/userReducer";
 import {useDispatch} from "react-redux";
 import FilterMenu from './FilterMenu/FilterMenu';
+import {ThemeVariant, useTheme} from "../../../context/ThemeContext";
 
 
 
@@ -21,10 +22,12 @@ const Header: FC  = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [open, setOpen] = useState<boolean>(false);
 
+    const {theme} = useTheme()
     const navigate = useNavigate()
     const location = useLocation()
     const dispatch = useDispatch()
     let auth = useAuth()
+
     let isAuth = auth?.isAuth
 
 
@@ -49,11 +52,12 @@ const Header: FC  = () => {
     }
 
     return (
-        <header className={styles.headerWrapper}>
+        <header className={`${styles.headerWrapper}
+            ${theme === ThemeVariant.light ? styles.headerWhiteWrapper : ""}`}>
             <Logo onClick={handleLogoOnClick}/>
             <Search query={searchQuery} onChange={handleSearchQueryChange} onSubmit={handleSearch}/>
             {
-                isAuth ? <UserInfo userName={auth?.username} avatarUrl={auth?.photo} onClickLogOut={handleLogOut}
+                isAuth ? <UserInfo theme={theme} userName={auth?.username} avatarUrl={auth?.photo} onClickLogOut={handleLogOut}
                                 onClick={handleToggleBurgerMenu} isOpen={open}/>
                         :
                          <DefaultInfo onClick={handleDefaultInfoOnClick}/>

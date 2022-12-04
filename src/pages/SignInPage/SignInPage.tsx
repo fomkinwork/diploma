@@ -69,7 +69,7 @@ const SignInPage: FC = () => {
         setSignInForm(prevState => ({...prevState, password}));
     }
 
-    // const handleUserNavigate = () => navigate(Routes.blog)
+    const handleUserNavigate = () => navigate(Routes.main)
 
     const handleSignIn = async () => {
         setSignInRequestError(initialErrorValue)
@@ -84,6 +84,7 @@ const SignInPage: FC = () => {
                         username: user.displayName,
                         photo: user.photoURL
                     }));
+                    handleUserNavigate()
                     setSignInRequestError(initialErrorValue)
                     setSignInForm(initialISignInForm)
                 })
