@@ -9,11 +9,11 @@ import ContentPost from "../../components/common/ContentPost/ContentPost";
 
 import Tabs from '../../components/common/Aside/Tabs/Tabs';
 import { TABS_CONFIG } from '../../components/common/Aside/Tabs/TabsConfig';
-import { IPostContent, IStaff } from '../../interface';
-import { detailPost, staff } from '../../store/AsynsStore/detailPost';
+import { IPostContent} from '../../interface';
+import { detailPost,} from '../../store/AsynsStore/detailPost';
 import { slider } from '../../store/AsynsStore/slider';
-import { IInfoFilms, IPostContent } from '../../interface';
-import { detailPost, infoFiims } from '../../store/AsynsStore/detailPost';
+import { IInfoFilms,} from '../../interface';
+import { infoFiims } from '../../store/AsynsStore/detailPost';
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
 import { getPosts } from '../../store/post';
 

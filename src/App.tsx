@@ -16,9 +16,6 @@ const App: FC = () => {
 
     const dispatch = useDispatch();
 
-import { setUserAction } from './store/reducers/userReducer';
-
-
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
@@ -44,7 +41,6 @@ import { setUserAction } from './store/reducers/userReducer';
             case Routes["resetPasswordSuccess"]:
             case Routes["resetPasswordEmail"]:
                 return true
-
             default:
                 return false
         }

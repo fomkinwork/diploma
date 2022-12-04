@@ -7,6 +7,7 @@ import {Routes} from "../../constants/routes";
 import AuthForm, {IFormProps} from "../../components/common/AuthForm/AuthForm";
 import {useNavigate} from "react-router-dom";
 import {getAuth, sendPasswordResetEmail} from "firebase/auth";
+import Logo from "../../components/common/Header/Logo/Logo";
 
 const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
     const navigate = useNavigate();
@@ -47,6 +48,7 @@ const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
 
     return (
         <div>
+            <Logo/>
             <AuthForm {...resetPasswordEmailFormConfig} />
         </div>
     );

@@ -8,6 +8,7 @@ import {PageProps} from "../../types/page";
 import {Routes} from "../../constants/routes";
 import {getAuth, sendPasswordResetEmail, signOut, updatePassword} from "firebase/auth";
 import {useNavigate} from "react-router-dom";
+import Logo from "../../components/common/Header/Logo/Logo";
 
 interface IResetPasswordForm {
     newPassword: string,
@@ -70,6 +71,7 @@ const ResetPasswordPage: FC<PageProps> = ({ title = "" }) => {
 
     return (
         <div title={title}>
+            <Logo/>
             <AuthForm {...resetPasswordFormConfig} />
         </div>
     );

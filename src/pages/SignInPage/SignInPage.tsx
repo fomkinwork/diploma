@@ -16,6 +16,7 @@ import Button from "../../components/common/Button/Button";
 import {useLocation, useNavigate} from "react-router-dom";
 import {handleCatchError} from "../../utils/errorCatcher";
 import {initialFormElementsError} from "../SignUpPage/SignUpPage";
+import Logo from "../../components/common/Header/Logo/Logo";
 
 // import {handleUserSignIn} from "../../store/asyncActions/userActions";
 
@@ -136,6 +137,7 @@ const SignInPage: FC = () => {
 
     return (
         <div>
+            <Logo/>
             <AuthForm {...signInFormConfig} />
         </div>
     );
