@@ -8,6 +8,7 @@
     /*padding-left: calc(147px + 220px);*/
     /*padding-right: calc(147px + 220px);*/
     gap: 40px;
+    padding-top: 56px;
 }
 
 .contentBlock {

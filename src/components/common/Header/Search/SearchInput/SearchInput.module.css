@@ -35,9 +35,8 @@
     height: 24px;
     padding: 6px 5px;
     position: absolute;
-    right: 16px;
-    /*position: absolute;*/
-    /*top: calc(50% - 12px);*/
-    /*right: 32px;*/
+    right: 20px;
+    top: 17px;
+    cursor: pointer;
     z-index: 2;
 }

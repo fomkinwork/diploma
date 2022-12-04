@@ -2,97 +2,80 @@ import React, { FC, useEffect, useState } from "react";
 
 import more from '../../../assets/more.svg'
 import frame from '../../../assets/frame.svg'
+import imbd from '../../../assets/Imbd.svg'
 
 import styles from './ContentPost.module.css'
-import PostButton from "./ContentPostButton/ContentPostButton";
-import {IInfoPost, IPostContent, IReliase, IStaff} from '../../../interface'
-import { IPostCard } from "../PostList/PostCard/PostCard";
-import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../../../store";
-import Slider from "./Slider/Slider";
-import { useParams } from "react-router-dom";
-import { slider } from "../../../store/AsynsStore/slider";
-import { staff } from "../../../store/AsynsStore/detailPost";
-import {updateCardAction} from "../../../store/reducers/selectedCardReducer";
+import { IPostContent } from '../../../interface'
+import ContentPostButton from "./ContentPostButton/ContentPostButton";
+import Carousel from "./Carousel/Carousel";
+import PostCard, { IPostCard } from "../PostList/PostCard/PostCard";
 
 export interface ContentPostProps {
     contentPost: IPostContent
-    postCards: IPostCard
-    staffed?: IStaff
+    postCards: IPostCard[]
 }
 
-const ContentPost: FC<ContentPostProps> = ({contentPost, postCards, staffed}) => {
-
-    const {id = 1} = useParams();
-    const dispatch = useDispatch();
-    const [post, setPost] = useState<IPostContent | null>(null);
-    const [postSlider, setPostSlider] = useState<IPostContent[]>([]);
-    // @ts-ignore
-    const {cards} = useSelector(state => state.selectedCard)
-
-    useEffect( () => {
-        const selectedPost = cards.find((posts: IPostContent) => posts.kinopoiskId === +id)
-        setPost(!!selectedPost ? selectedPost : null)
-        slider(setPostSlider, +id)
-    }, [cards])
-
-    const handleAddToFavoritePost = () => {
-        // @ts-ignore
-        dispatch(updateCardAction({...post, favorite: !post.favorite}));
-    }
+const ContentPost: FC<ContentPostProps> = ({contentPost, postCards=[]}) => {
 
     return(
-        <div className={styles.contentPostWrapper}>
-            <div className={styles.contentPostPoster}>
-                <img 
-                    src={!!contentPost ? contentPost.posterUrl : "error"} 
-                    alt={contentPost.nameOriginal}  
-                    className={styles.contentPostPosterImg}/>
-                <div className={styles.contentPostPosterActions}>
-                    <PostButton active={post?.favorite} onClick={handleAddToFavoritePost}
-                                className={styles.contentPostMore} icon={more} />
-                    <PostButton className={styles.contentPostFrame} icon={frame} />
+        <div className={styles.contentWrapper}>
+            <div className={styles.contentPost}>
+                <div className={styles.contentPoster}>
+                    <img src={contentPost.posterUrl} alt={contentPost.type}  className={styles.contentPosterImg}/>
+                    <div className={styles.contentPosterBtn}>
+                        <ContentPostButton className={styles.contentPostMore} icon={more}/>
+                        <ContentPostButton className={styles.contentPostFrame} icon={frame}/>
+                    </div>
                 </div>
-            </div>
-            <div className={styles.contentPostInfo}>
-                <p className={styles.contentPostInfoGenres}>{contentPost.genres?.map(genres => genres.genre + ' • ')}</p>
-                <h3 className={styles.contentPostInfoTitle}>
-                    {!contentPost.nameRu?.length ? contentPost.nameOriginal : contentPost.nameRu}
-                </h3>
-                <div className={styles.contentPostInfoBlock}>
-                    <span className={styles.contentPostInfoBlockRating}>{contentPost.ratingKinopoisk}</span>
-                    {contentPost.ratingImdb === null
+                <div className={styles.contentDetail}>
+                    <p className={styles.contentGenres}>{contentPost.genres?.map(genre => genre.genre)}</p>
+                    <h3 className={styles.contentTitle}>{!contentPost.nameRu?.length ? contentPost.nameOriginal : contentPost.nameRu}</h3>
+                    <div className={styles.contentRating}>
+                        <p className={styles.contentRatingKinopoisk}>{contentPost.ratingKinopoisk}</p>
+                        {contentPost.ratingImdb === null
                         ? 
                             <></>
                         :
-                            <span className={styles.contentPostInfoBlockRatingService}>{contentPost.ratingImdb}</span>
-                    }
-                    {contentPost.filmLength === null
+                            <span className={styles.contentRatingImbd}><img src={imbd} alt='logo' />{contentPost.ratingImdb}</span>
+                        }
+                        {contentPost.filmLength === null
                         ? 
                             <></>
                         :
-                            <span className={styles.contentPostInfoBlockLengthMovies}>{contentPost.filmLength} min</span>
+                            <span className={styles.contentLength}>{contentPost.filmLength} min</span>
                     }
-                </div>
-                    <p className={styles.contentPostInfoBlockDescription}>{contentPost.description}</p>
-                <div className={styles.contentPostInfoBlockDate}>
-                    <div className={styles.contentPostInfoBlockMovie}>
-                        <p>Year</p>
-                        <p>Country</p>
-                        <p>Production</p>
-                        <p>Director</p>
-                        <p>Writers</p>
                     </div>
-                    <div className={styles.contentPostInfoBlockMovieInfo}>
-                        <p>{contentPost.year}</p>
-                        <p>{contentPost.countries?.map(count => count.country + ' ')}</p>
-                        <p>{contentPost.ratingKinopoisk}</p>
-                        <p>{staffed?.nameEn}</p>
-                        <p>{contentPost.ratingKinopoisk}</p>
+                    <p className={styles.contentDescription}>{contentPost.description}</p>
+                    <div className={styles.contentInfoBlock}>
+                        <div>
+                            <p className={styles.contentInfoLeftBlock}>Year</p>
+                            <p className={styles.contentInfoLeftBlock}>Released</p>
+                            <p className={styles.contentInfoLeftBlock}>BoxOffice</p>
+                            <p className={styles.contentInfoLeftBlock}>Country</p>
+                            <p className={styles.contentInfoLeftBlock}>Production</p>
+                            <p className={styles.contentInfoLeftBlock}>Actors</p>
+                            <p className={styles.contentInfoLeftBlock}>Director</p>
+                            <p className={styles.contentInfoLeftBlock}>Writers</p>
+                        </div>
+                        <div>
+                            <p className={styles.contentInfoRigthBlock}>{contentPost.year}</p>
+                            <p className={styles.contentInfoRigthBlock}>{contentPost.year}</p>
+                            <p className={styles.contentInfoRigthBlock}>$381,409,310</p>
+                            <p className={styles.contentInfoRigthBlock}>{contentPost.countries?.map(country => country.country)}</p>
+                            <p className={styles.contentInfoRigthBlock}>Heyday Films, Moving Picture Company, Warner Bros.</p>
+                            <p className={styles.contentInfoRigthBlock}>Daniel Radcliffe, Emma Watson, Rupert Grint</p>
+                            <p className={styles.contentInfoRigthBlock}>David Yates</p>
+                            <p className={styles.contentInfoRigthBlock}>J.K. Rowling, Steve Kloves</p>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <Slider postCards={postSlider} key={postCards?.kinopoiskId}/>
+                    <Carousel>
+                        <div className={styles.carousel}>
+                            {/* {postCards.map((postCard: IPostCard) => <PostCard key={postCard.kinopoiskId} postCard={postCard} />)} */}
+                            <div className={styles.item1}>item1</div>
+                            <div className={styles.item2}>item2</div>
+                            <div className={styles.item3}>item3</div>
+                        </div>
+                    </Carousel>
                 </div>
             </div>
         </div>

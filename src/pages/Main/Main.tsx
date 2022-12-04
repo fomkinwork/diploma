@@ -16,6 +16,7 @@ import {useAuth} from "../../hooks/use-Auth";
 import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 
 
+
 const Main: FC = () => {
     const [posts, setPosts] = useState<IPostCard[]>([]);
     const dispatch = useDispatch();

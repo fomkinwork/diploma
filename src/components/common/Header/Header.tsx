@@ -1,4 +1,6 @@
+
 import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react';
+
 
 import styles from './Header.module.css'
 import {useLocation, useNavigate} from "react-router-dom";
@@ -11,6 +13,8 @@ import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 import DefaultInfo from "./DefaultInfo/DefaultInfo";
 import {setUserAction} from "../../../store/reducers/userReducer";
 import {useDispatch} from "react-redux";
+import FilterMenu from './FilterMenu/FilterMenu';
+
 
 
 const Header: FC  = () => {

@@ -1,6 +1,4 @@
 import {useSelector} from 'react-redux';
-import {IUser, setUserAction} from "../store/reducers/userReducer";
-import {getAuth} from "firebase/auth";
 
 export function useAuth() {
     // @ts-ignore
@@ -14,5 +12,4 @@ export function useAuth() {
         photo: user.photo,
         id: user.id,
     };}
-
 }

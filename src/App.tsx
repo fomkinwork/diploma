@@ -1,7 +1,11 @@
+
 import React, {FC, useEffect, useMemo} from 'react';
+
 import AppRouter from './components/AppRouter/AppRouter';
+import Header from './components/common/Header/Header';
 import MainWrapper from './components/common/MainWrapper/MainWrapper';
-import Header from "./components/common/Header/Header";
+
+
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {useDispatch} from "react-redux";
 import {setUserAction} from "./store/reducers/userReducer";
@@ -11,6 +15,9 @@ import {Routes} from "./constants/routes";
 const App: FC = () => {
 
     const dispatch = useDispatch();
+
+import { setUserAction } from './store/reducers/userReducer';
+
 
     useEffect(() => {
         const auth = getAuth();
@@ -25,6 +32,7 @@ const App: FC = () => {
             }
         });
     },)
+
 
     const { pathname } = useLocation()
 

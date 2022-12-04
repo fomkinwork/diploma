@@ -54,7 +54,7 @@ export interface IPostContent {
   favorite?: boolean
 }
 
-export interface IInfoPost {
+export interface IInfoFilms {
   type: string,
   amount: number,
   currencyCode: string,
@@ -75,18 +75,4 @@ export interface IReliase {
       name: string
     }
   ]
-}
-
-export interface ISlider {
-  total?: number
-}
-
-export interface IStaff {
-  staffId?: number,
-  nameRu?: string,
-  nameEn?: string,
-  description?: string,
-  posterUrl?: string,
-  professionText?: string,
-  professionKey?: string
 }

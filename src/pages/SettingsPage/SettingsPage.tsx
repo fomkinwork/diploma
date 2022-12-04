@@ -1,4 +1,5 @@
 import React, {ChangeEventHandler, FC, useEffect, useState} from 'react';
+
 import {PageProps} from "../../types/page";
 import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 import SettingsForm, {ISettingsFormProps} from "../../components/common/SettingsForm/SettingsForm";
@@ -12,6 +13,7 @@ import {
 } from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {setThemeAction, ThemeVariant} from '../../store/reducers/themeReducer';
+
 
 interface ISettingsForm {
     name: string,
@@ -33,6 +35,7 @@ const initialISettingsForm = {
 const SettingsPage:FC<PageProps> = () => {
     const auth = getAuth();
     const user = auth.currentUser;
+
     const dispatch = useDispatch()
     // @ts-ignore
     const { theme } = useSelector(state => state.theme)
