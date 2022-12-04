@@ -1,6 +1,5 @@
 .authWrapper {
     display: flex;
-    padding: 48px 0 0 62px;
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
@@ -18,3 +17,12 @@
     left: 62px;
 }
 
+@media screen and (max-width: 375px) {
+    .authHeader
+    {
+        left: 0;
+        right: 0;
+        top: 32px;
+    }
+
+}

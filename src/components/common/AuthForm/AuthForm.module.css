@@ -1,7 +1,6 @@
 .formWrapper {
     margin: 0 auto;
     max-width: 574px;
-    width: 100%;
     max-height: 732px;
     display: flex;
     flex-direction: column;
@@ -75,4 +74,17 @@
 .link {
     text-decoration: none;
     color:#7B61FF
+}
+
+@media  screen and (max-width: 768px) {
+    .formWrapper{
+        width: calc(100vw - 40px);
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .formWrapper {
+        gap: 20px;
+        padding: 24px;
+    }
 }
