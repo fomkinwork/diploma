@@ -13,6 +13,8 @@ import {
 } from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {ThemeVariant, useTheme} from "../../context/ThemeContext";
+import {IFormErrors, initialFormElementsError} from "../SignUpPage/SignUpPage";
+import {FormElementError, initialErrorValue} from "../SignInPage/SignInPage";
 
 
 interface ISettingsForm {
@@ -39,7 +41,10 @@ const SettingsPage:FC<PageProps> = () => {
     const dispatch = useDispatch()
     // @ts-ignore
     const [settingsForm, setSettingsForm] = useState<ISettingsForm>(initialISettingsForm);
-
+    const [settingsFormInputError, setSettingsFormInputError] = useState<IFormErrors>(initialFormElementsError);
+    const [signInRequestError, setSignInRequestError] = useState<FormElementError>(initialErrorValue);
+    console.log(settingsFormInputError)
+    console.log(settingsForm)
     const {theme, setTheme} = useTheme()
 
     const handleSetTheme = () => {
@@ -50,7 +55,7 @@ const SettingsPage:FC<PageProps> = () => {
     useEffect(() => {
         if (user !== null) {
             // @ts-ignore
-            setSettingsForm({email : user.email, name : user.displayName})
+            setSettingsForm({email : user.email, name : user.displayName,password:"",confirmPassword:"", newPassword:""})
         }}
         , [user])
 
@@ -66,24 +71,28 @@ const SettingsPage:FC<PageProps> = () => {
     }
 
     const handleChangeProfile = async (user: any) => {
-        if (user.displayName !== settingsForm.name && settingsForm.name.length > 2){
-            await updateProfile(user, {
-                displayName: settingsForm.name
-            }).then(() => {
-                console.log("Profile updated")
-            }).catch(console.error);
-        } else {
-            console.log("need to change some fields")
+        const isValid = handleFormValidate()
+        if (isValid) {
+            if (user.displayName !== settingsForm.name && settingsForm.name.length > 2){
+                await updateProfile(user, {
+                    displayName: settingsForm.name
+                }).then(() => {
+                    console.log("Profile updated")
+                }).catch(console.error);
+            } else {
+                console.log("need to change some fields")
+            }
+            if (user.email !== settingsForm.email) {
+                await updateEmail(user, settingsForm.email)
+                    .then(() => {
+                        sendEmailVerification(user)
+                            .then(() => {
+                                console.log("Pismo otpravleno")
+                            });
+                    }).catch(console.error);
+            }
         }
-        if (user.email !== settingsForm.email) {
-            await updateEmail(user, settingsForm.email)
-                .then(() => {
-                    sendEmailVerification(user)
-                        .then(() => {
-                            console.log("Pismo otpravleno")
-                    });
-            }).catch(console.error);
-        }
+
     }
 
     const handleChangePassword = async (user: any) => {
@@ -104,25 +113,38 @@ const SettingsPage:FC<PageProps> = () => {
         }
     }
 
+    const handleFormValidate = () => {
+        let isValid = true
+        for (let field in settingsForm) {
+            // @ts-ignore
+            if (!settingsForm[field]) {
+                // @ts-ignore
+                setSettingsFormInputError(prevState => ({ ...prevState, [field]: { error: true, text: "Required Field is Empty" } }))
+                isValid = false
+            }
+        }
+        return isValid
+    }
+
     const handleSetEmail: ChangeEventHandler<HTMLInputElement> = ({target: {value: email }}): void => {
-        // setSignUpInputError(prevState => ({ ...prevState, email: initialErrorValue }))
+        setSettingsFormInputError(prevState => ({ ...prevState, email: initialErrorValue }))
         setSettingsForm(prevState => ({...prevState, email}))};
 
     const handleSetName: ChangeEventHandler<HTMLInputElement> = ({target: {value: name }}): void => {
-        // setSignUpInputError(prevState => ({ ...prevState, name: initialErrorValue }))
+        setSettingsFormInputError(prevState => ({ ...prevState, name: initialErrorValue }))
         setSettingsForm(prevState => ({...prevState, name}))};
 
     const handleSetPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: password }}): void => {
-        // setSignUpInputError(prevState => ({ ...prevState, password: initialErrorValue }))
+        setSettingsFormInputError(prevState => ({ ...prevState, password: initialErrorValue }))
         setSettingsForm(prevState => ({...prevState, password}))};
 
     const handleSetNewPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: newPassword }}): void => {
-        // setSignUpInputError(prevState => ({ ...prevState, password: initialErrorValue }))
+        setSettingsFormInputError(prevState => ({ ...prevState, password: initialErrorValue }))
         setSettingsForm(prevState => ({...prevState, newPassword}))};
 
     const handleSetConfirmPassword: ChangeEventHandler<HTMLInputElement> = ({target: {value: confirmPassword }})
         : void => {
-        // setSignUpInputError(prevState => ({ ...prevState, confirmPassword: initialErrorValue }))
+        setSettingsFormInputError(prevState => ({ ...prevState, confirmPassword: initialErrorValue }))
         setSettingsForm(prevState => ({...prevState, confirmPassword}))};
 
     const settingsFormConfig: ISettingsFormProps = {
@@ -135,7 +157,7 @@ const SettingsPage:FC<PageProps> = () => {
                 onChange: handleSetName,
                 placeholder: "Enter your Name",
                 required: true,
-                // error: signUpInputError.name
+                error: settingsFormInputError.name
             },
             {
                 title: "Email",
@@ -144,7 +166,7 @@ const SettingsPage:FC<PageProps> = () => {
                 value: settingsForm.email,
                 onChange: handleSetEmail,
                 placeholder: "Enter your Email",
-                // error: signInInputError.email
+                error: settingsFormInputError.email
             },
         ],
         passwordInputs: [
@@ -156,7 +178,7 @@ const SettingsPage:FC<PageProps> = () => {
                 onChange: handleSetPassword,
                 type: "password",
                 placeholder: "Enter your Password",
-                // error: signUpInputError.password
+                error: settingsFormInputError.password
             },
             {
                 title: "New Password",
@@ -167,7 +189,7 @@ const SettingsPage:FC<PageProps> = () => {
                 type: "password",
                 placeholder: "New Password",
                 required: true,
-                // error: signUpInputError.confirmPassword
+                error: settingsFormInputError.confirmPassword
             },
             {
                 title: "Confirm Password",
@@ -178,7 +200,7 @@ const SettingsPage:FC<PageProps> = () => {
                 type: "password",
                 placeholder: "Confirm your Password",
                 required: true,
-                // error: signUpInputError.confirmPassword
+                error: settingsFormInputError.confirmPassword
             }
         ],
         actionButtonCancel: {

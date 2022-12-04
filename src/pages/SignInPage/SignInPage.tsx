@@ -46,7 +46,7 @@ export interface IFormErrors {
     confirmPassword?: FormElementError
 }
 
-const initialErrorValue = { text: null, error: false }
+export const initialErrorValue = { text: null, error: false }
 
 // @ts-ignore
 const SignInPage: FC = () => {
