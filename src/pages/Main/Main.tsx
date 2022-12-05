@@ -19,6 +19,8 @@ import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 
 const Main: FC = () => {
     const [posts, setPosts] = useState<IPostCard[]>([]);
+    let [pageCount, setPageCount] = useState(2)
+
     const dispatch = useDispatch();
 
     const { cards } = useSelector((state: IRootState) => state.selectedCard);
@@ -26,6 +28,12 @@ const Main: FC = () => {
     const setReduxPosts = (payload: IPostCard[]) => {
         dispatch(getPostsAction(payload));
         dispatch(setCardsAction(payload));
+    }
+
+    const handlePostAdd = () => {
+        setPageCount(pageCount + 1)
+        getPosts(setPosts, pageCount)
+        setPosts(posts.concat(posts))        
     }
 
     useEffect(() => {
@@ -38,7 +46,7 @@ const Main: FC = () => {
 
     return (
         <PageWrapper>
-            <PostList postCards={posts}/>
+            <PostList postCards={posts} {...posts} key={cards} onClick={handlePostAdd}/>
         </PageWrapper>
     );
 };

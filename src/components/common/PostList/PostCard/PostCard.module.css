@@ -1,12 +1,12 @@
 .postcardContainer {
     display: flex;
     flex-direction: column;
-    margin: 0 20px 30px 20px;
-    max-width: 266px;
+    margin: 0 20px 30px;
+    width: 266px;
 }
 
 .postCardPoster {
-    width: 266px;
+    width: 100%;
     height: 357px;
     border-radius: 5%;
     position: relative;

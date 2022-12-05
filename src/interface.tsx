@@ -52,27 +52,5 @@ export interface IPostContent {
   shortFilm?: boolean,
   completed?: boolean
   favorite?: boolean
-}
-
-export interface IInfoFilms {
-  type: string,
-  amount: number,
-  currencyCode: string,
-  name: string,
-  symbol: string
-}
-
-export interface IReliase {
-  type: string,
-  subType: string,
-  date: string,
-  reRelease: boolean,
-  country: {
-    country: string
-  },
-  companies: [
-    {
-      name: string
-    }
-  ]
+  filmId: number
 }

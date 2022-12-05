@@ -9,7 +9,7 @@ import ContentPost from "../../components/common/ContentPost/ContentPost";
 
 import { IPostContent} from '../../interface';
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
-import { getTrendsPosts } from '../../store/AsynsStore/posts';
+import { getPosts, getTrendsPosts } from '../../store/AsynsStore/posts';
 import { getDetailPost } from '../../store/AsynsStore/detailPost';
 
 const Content: FC = () => {
@@ -27,7 +27,7 @@ const Content: FC = () => {
     }, [])
 
     useEffect( () => {
-        const selectedPost = cards.find((posts: IPostContent) => posts.kinopoiskId === +id)
+        const selectedPost = cards.find((posts: IPostContent) => posts.kinopoiskId || posts.filmId === +id)
         setPost(!!selectedPost ? selectedPost : null)
         getDetailPost(+id, setPost)
     }, [])
