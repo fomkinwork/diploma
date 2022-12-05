@@ -11,6 +11,7 @@ import { IPostContent} from '../../interface';
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
 import { getPosts, getTrendsPosts } from '../../store/AsynsStore/posts';
 import { getDetailPost } from '../../store/AsynsStore/detailPost';
+
 import {setArticleAction} from "../../store/reducers/articleReducer";
 import {updateCardAction} from "../../store/reducers/selectedCardReducer";
 import { getPostsAction } from '../../store/reducers/postReducer';
@@ -26,7 +27,6 @@ const Content: FC = () => {
 
     // @ts-ignore
     const {cards} = useSelector(state => state.selectedCard)
-
 
     const handleAddToFavoritePost = () => {
         // @ts-ignore
