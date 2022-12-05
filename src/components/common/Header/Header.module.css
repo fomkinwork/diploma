@@ -2,10 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 40px 65px 56px;
+    padding: 40px 65px 0 56px;
     gap: 40px;
     position: relative;
-    max-width: 1920px;
 }
 
 .headerWhiteWrapper {

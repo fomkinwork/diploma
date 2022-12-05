@@ -18,8 +18,12 @@
     min-width: 56px;
     text-align: center;
 }
+.darkUserName {
+    color: #242426;
+}
 
 .arrow {
     display: flex;
     align-items: center;
+    transform: rotate(90deg);
 }

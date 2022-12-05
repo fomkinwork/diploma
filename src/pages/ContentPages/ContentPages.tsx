@@ -13,17 +13,20 @@ import { getPosts, getTrendsPosts } from '../../store/AsynsStore/posts';
 import { getDetailPost } from '../../store/AsynsStore/detailPost';
 import {setArticleAction} from "../../store/reducers/articleReducer";
 import {updateCardAction} from "../../store/reducers/selectedCardReducer";
+import { getPostsAction } from '../../store/reducers/postReducer';
+import { setCardsAction } from '../../store/reducers/selectedCardReducer';
 
 const Content: FC = () => {
 
     const {id = 1} = useParams();
     const dispatch = useDispatch()
 
-    const [post, setPost] = useState<IPostContent | null>(null);
-    const [posts, setPosts] = useState<IPostContent[]>([]);
+    const [contentPost, setContentPost] = useState<IPostContent | null>(null);
+    const [posts, setPosts] = useState<IPostCard[]>([]);
 
     // @ts-ignore
     const {cards} = useSelector(state => state.selectedCard)
+
 
     const handleAddToFavoritePost = () => {
         // @ts-ignore
@@ -34,16 +37,27 @@ const Content: FC = () => {
         getTrendsPosts(setPosts)
     }, [])
 
+    const setReduxPosts = (payload: IPostCard[]) => {
+        dispatch(getPostsAction(payload));
+        dispatch(setCardsAction(payload));
+    }
+
     useEffect( () => {
-        const selectedPost = cards.find((posts: IPostContent) => posts.kinopoiskId || posts.filmId === +id)
-        setPost(!!selectedPost ? selectedPost : null)
-        getDetailPost(+id, setPost)
+        getDetailPost(+id, setContentPost)
     }, [])
 
-    if (post) {
+    useEffect(() => {
+        getTrendsPosts((cards: IPostCard[] ) => setReduxPosts(cards))
+    }, [])
+
+    useEffect(() => {
+        setPosts(cards);
+    }, [cards])
+
+    if (contentPost) {
         return ( 
             <PageWrapper>
-                <ContentPost contentPost={post} {...post} postCards={posts} onClick={handleAddToFavoritePost}/>
+                <ContentPost contentPost={contentPost} postCards={posts} onClick={handleAddToFavoritePost}/>
             </PageWrapper>
         );
     } else {

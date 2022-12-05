@@ -3,7 +3,6 @@ import React, {FC, useEffect} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 
 import {PRIVATE_ROUTES, PUBLIC_ROUTES} from "../../constants/routes";
-import {useAuth} from "../../hooks/use-Auth";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserAction} from "../../store/reducers/userReducer";

@@ -2,16 +2,8 @@ import {FC} from "react";
 
 import {RouteObject} from "react-router-dom";
 
-// import BlogPage from "../pages/BlogPage/BlogPage";
 import SignInPage from "../pages/SignInPage/SignInPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
-// import PostPage from "../pages/PostPage/PostPage";
-// import SignUpConfirmationPage from "../pages/SignUpConfirmationPage/SignUpConfirmationPage";
-// import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
-// import ResetPasswordEmailPage from "../pages/ResetPasswordEmailPage/ResetPasswordEmailPage";
-// import SignUpSuccessPage from "../pages/SignUpSuccessPage/SignUpSuccessPage";
-// import AddPostPage from "../pages/AddPostPage/AddPostPage";
-// import SearchResultsPage from "../pages/SearchResultsPage/SearchResultsPage";
 
 import {PageProps} from "../types/page";
 import Content from "../pages/ContentPages/ContentPages";
@@ -34,6 +26,7 @@ export enum Routes {
     signIn = "/signin",
     signUp = "/signup",
     main = "/main",
+    films= "/films",
     trends = "/trends",
     content = "/main/:id",
     favorites = "/favorites",
@@ -48,13 +41,12 @@ export enum Routes {
 export const PUBLIC_ROUTES: IRoute[] = [
     {path: Routes.signIn, Element: SignInPage, title: "Sign In"},
     {path: Routes.signUp, Element: SignUpPage, title: "Sign Up"},
-    {path: Routes.main, Element: Main, title: "Blog"},
-    {path: Routes.content, Element: Content},
+    {path: Routes.main, Element: Main, title: "Main"},
+    {path: Routes.content, Element: Content, title: 'Films'},
     {path: Routes.resetPasswordEmail, Element: ResetPasswordEmailPage, title: "Reset password"},
     {path: Routes.resetPassword, Element: ResetPasswordPage, title: "New password"},
     {path: Routes.trends, Element: TrendsPage},
     {path: Routes.favorites, Element: FavoritesPage},
-    // {path: Routes.signUpConfirmation, Element: SignUpConfirmationPage, title: "Registration confirmation"},
     {path: Routes.resetPasswordSuccess, Element: SignInPage, title: "Success"},
     {path: Routes.settings, Element: SettingsPage, title: "Settings"},
     {path: Routes.search, Element: SearchPage},
@@ -62,6 +54,5 @@ export const PUBLIC_ROUTES: IRoute[] = [
 
 export const PRIVATE_ROUTES: IRoute[] = [
     ...PUBLIC_ROUTES,
-    // {path: Routes.search, Element: SearchResultsPage},
 ]
 

@@ -22,7 +22,6 @@ const Search: FC<SearchProps> = ({theme, query = "", onChange, onSubmit}) => {
         setOpen(false)
         handleClose()
     };
-    const handleOpenSearchInput = () => setOpen(true);
 
     return (
         <div className={styles.searchWrapper}>

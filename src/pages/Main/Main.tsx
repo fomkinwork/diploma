@@ -5,9 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
 import PostList from '../../components/common/PostList/PostList';
-import Tabs from '../../components/common/Aside/Tabs/Tabs';
-import { TABS_CONFIG } from '../../components/common/Aside/Tabs/TabsConfig';
-import PostsService from '../../services/postsService';
 import { IRootState } from '../../store';
 import {getPosts, getSearchPosts} from '../../store/AsynsStore/posts';
 import { getPostsAction } from '../../store/reducers/postReducer';
@@ -19,7 +16,7 @@ import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 
 const Main: FC = () => {
     const [posts, setPosts] = useState<IPostCard[]>([]);
-    let [pageCount, setPageCount] = useState(2)
+    const [pageCount, setPageCount] = useState(2)
 
     const dispatch = useDispatch();
 
@@ -33,7 +30,7 @@ const Main: FC = () => {
     const handlePostAdd = () => {
         setPageCount(pageCount + 1)
         getPosts(setPosts, pageCount)
-        setPosts(posts.concat(posts))        
+        setPosts([...posts, ...posts])        
     }
 
     useEffect(() => {
@@ -46,7 +43,7 @@ const Main: FC = () => {
 
     return (
         <PageWrapper>
-            <PostList postCards={posts} {...posts} key={cards} onClick={handlePostAdd}/>
+            <PostList postCards={posts} onClick={handlePostAdd}/>
         </PageWrapper>
     );
 };

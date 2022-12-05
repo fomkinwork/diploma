@@ -15,6 +15,10 @@
     color: #FFFFFF;
 }
 
+.darkCarouselTitle {
+    color: #242426;
+}
+
 .carouselItems {
     display: flex;
     justify-content: space-between;
@@ -30,10 +34,12 @@
     background: none;
     border: none;
     cursor: pointer;
+    stroke: #FFFFFF;
+    align-items: center;
 }
 
-.carouselArrowLeft {
-    fill: #FFFFFF;
+.darkCarouselActions svg {
+    stroke: #242426;
 }
 
 .carouselActions {
