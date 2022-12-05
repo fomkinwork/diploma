@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {useParams} from "react-router-dom";
 
@@ -11,16 +11,24 @@ import { IPostContent} from '../../interface';
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
 import { getPosts, getTrendsPosts } from '../../store/AsynsStore/posts';
 import { getDetailPost } from '../../store/AsynsStore/detailPost';
+import {setArticleAction} from "../../store/reducers/articleReducer";
+import {updateCardAction} from "../../store/reducers/selectedCardReducer";
 
 const Content: FC = () => {
 
     const {id = 1} = useParams();
+    const dispatch = useDispatch()
 
     const [post, setPost] = useState<IPostContent | null>(null);
     const [posts, setPosts] = useState<IPostContent[]>([]);
 
     // @ts-ignore
     const {cards} = useSelector(state => state.selectedCard)
+
+    const handleAddToFavoritePost = () => {
+        // @ts-ignore
+        dispatch(updateCardAction({...post, favorite: !post.favorite}));
+    }
 
     useEffect(() => {
         getTrendsPosts(setPosts)
@@ -35,7 +43,7 @@ const Content: FC = () => {
     if (post) {
         return ( 
             <PageWrapper>
-                <ContentPost contentPost={post} {...post} postCards={posts}/>
+                <ContentPost contentPost={post} {...post} postCards={posts} onClick={handleAddToFavoritePost}/>
             </PageWrapper>
         );
     } else {

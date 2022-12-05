@@ -13,7 +13,7 @@ import AuthWrapper from "../../components/common/AuthWrapper/AuthWrapper";
 const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
     const navigate = useNavigate();
 
-    const handleLogoOnClick = () => navigate(Routes.main)
+    const handleRedirectSignIn = () => navigate(Routes.signIn)
 
     const [email, setEmail] = useState<string>("")
 
@@ -24,7 +24,7 @@ const ResetPasswordEmailPage: FC<PageProps> = ({ title = "" }) => {
         const auth = getAuth();
         await sendPasswordResetEmail(auth, email)
             .then((res) => {
-                console.log(res);
+                handleRedirectSignIn()
             })
             .catch(console.error);
         await handleRedirectToHomePage

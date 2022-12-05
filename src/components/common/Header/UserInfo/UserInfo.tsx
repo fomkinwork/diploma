@@ -12,7 +12,7 @@ import {ThemeVariant} from "../../../../context/ThemeContext";
 interface UserInfoProps {
     onClickLogOut: () => void;
     onClick?: () => void;
-    userName?: string
+    userName?: string | undefined;
     avatarUrl?: string
     className?: string
     isOpen?: boolean
@@ -22,7 +22,7 @@ interface UserInfoProps {
 const UserInfo: FC<UserInfoProps> = (
     {
         onClick,
-        userName= "User name",
+        userName="",
         avatarUrl= "",
         className = "",
         onClickLogOut,

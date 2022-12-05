@@ -1,5 +1,5 @@
 
-import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, FC, FormEvent, useEffect, useMemo, useState} from 'react';
 
 
 import styles from './Header.module.css'
@@ -9,17 +9,13 @@ import Logo from "./Logo/Logo";
 import {Routes} from "../../../constants/routes";
 import UserInfo from "./UserInfo/UserInfo";
 import {useAuth} from "../../../hooks/use-Auth";
-import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
+import {getAuth, signOut} from "firebase/auth";
 import DefaultInfo from "./DefaultInfo/DefaultInfo";
 import {setUserAction} from "../../../store/reducers/userReducer";
 import {useDispatch} from "react-redux";
-import FilterMenu from './FilterMenu/FilterMenu';
 import {ThemeVariant, useTheme} from "../../../context/ThemeContext";
 
-
-
-
-const Header: FC  = () => {
+const Header: FC = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [open, setOpen] = useState<boolean>(false);
 
@@ -27,8 +23,9 @@ const Header: FC  = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const dispatch = useDispatch()
-    let auth = useAuth()
 
+    let auth = useAuth()
+    // @ts-ignore
     let isAuth = auth?.isAuth
 
 

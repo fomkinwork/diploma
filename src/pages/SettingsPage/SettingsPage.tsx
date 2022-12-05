@@ -16,6 +16,7 @@ import {ThemeVariant, useTheme} from "../../context/ThemeContext";
 import {IFormErrors, initialFormElementsError} from "../SignUpPage/SignUpPage";
 import {FormElementError, initialErrorValue} from "../SignInPage/SignInPage";
 import {handleCatchError} from "../../utils/errorCatcher";
+import {setUserAction} from "../../store/reducers/userReducer";
 
 
 interface ISettingsForm {
@@ -49,7 +50,7 @@ export const initialTopTextValue =  {
 const SettingsPage:FC<PageProps> = () => {
     const auth = getAuth();
     const user = auth.currentUser;
-
+    const dispatch = useDispatch()
     // @ts-ignore
     const [settingsForm, setSettingsForm] = useState<ISettingsForm>(initialISettingsForm);
     const [settingsFormInputError, setSettingsFormInputError] = useState<IFormErrors>(initialFormElementsError);
@@ -90,6 +91,9 @@ const SettingsPage:FC<PageProps> = () => {
             await updateProfile(user, {
                 displayName: settingsForm.name
             }).then(() => {
+                dispatch(setUserAction({
+                    username: user.displayName,
+                }))
                 setTopText(prevState => ({...prevState, name: "Profile Updated"}))
             }).catch(console.error);
             if (user.email !== settingsForm.email) {

@@ -2,11 +2,11 @@ import {useSelector} from 'react-redux';
 
 export function useAuth() {
     // @ts-ignore
-    const { user } = useSelector(state => state.user)
-
+    let { user, isAuth } = useSelector(state => state.user)
+    console.log(isAuth)
     if(user) {
         return {
-        isAuth: !!user.email,
+        isAuth: isAuth,
         username: user.username,
         email: user.email,
         photo: user.photo,

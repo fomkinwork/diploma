@@ -33,15 +33,6 @@ interface IFormErrors {
     text: FormElementError
 }
 
-const initialErrorValue = { text: null, error: false }
-
-const initialFormElementsError: IFormErrors = {
-    title: initialErrorValue,
-    image: initialErrorValue,
-    description: initialErrorValue,
-    text: initialErrorValue,
-}
-
 const AuthForm:FC<IFormProps> = ({ inputs= [], topText, page, actionButton,
                                  disabledButton, requestError, title}) => {
 

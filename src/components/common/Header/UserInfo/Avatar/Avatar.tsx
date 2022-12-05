@@ -4,7 +4,7 @@ import UserAvatar from "./UserAvatar/UserAvatar";
 import DefaultAvatar from "./DefaultAvatar/DefaultAvatar";
 
 interface AvatarProps {
-    userName: string
+    userName: string | undefined
     url?: string
     alt?: string
 }

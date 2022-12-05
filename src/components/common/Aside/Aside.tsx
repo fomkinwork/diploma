@@ -5,10 +5,13 @@ import Footer from "./Tabs/Footer/Footer";
 import styles from "./Aside.module.css"
 import {useLocation, useNavigate} from "react-router-dom";
 import {Routes} from "../../../constants/routes";
+import {useAuth} from "../../../hooks/use-Auth";
 
 const Aside: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
+
+    const auth = useAuth()
 
     const [activeTabItem, setActiveTabItem] = useState<number>(1);
     const handleSetActiveTabItem = (id: number) => {
@@ -28,7 +31,7 @@ const Aside: FC = () => {
                 navigate(Routes.favorites)
                 return
             case 4:
-                navigate(Routes.settings)
+                auth?.isAuth ? navigate(Routes.settings) : navigate(Routes.signIn)
                 return
             default:
                 return
@@ -45,6 +48,7 @@ const Aside: FC = () => {
                 return setActiveTabItem(2)
             case "/favorites" :
                 return setActiveTabItem(3)
+
             default : setActiveTabItem(1)
         }
     }, [location]);

@@ -16,7 +16,7 @@ export interface ContentPostProps {
     onClick?: () => void
 }
 
-const ContentPost: FC<ContentPostProps> = ({contentPost, postCards}) => {
+const ContentPost: FC<ContentPostProps> = ({contentPost, postCards, onClick}) => {
 
     return(
         <div className={styles.contentWrapper}>
@@ -24,7 +24,7 @@ const ContentPost: FC<ContentPostProps> = ({contentPost, postCards}) => {
                 <div className={styles.contentPoster}>
                     <img src={contentPost.posterUrl} alt={contentPost.type}  className={styles.contentPosterImg}/>
                     <div className={styles.contentPosterBtn}>
-                        <Button className={styles.contentPostMore}><img src={more} alt="icon" /></Button>
+                        <Button className={styles.contentPostMore} onClick={onClick}><img src={more} alt="icon" /></Button>
                         <Button className={styles.contentPostFrame}><img src={frame} alt="icon" /></Button>
                     </div>
                 </div>
