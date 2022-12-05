@@ -32,7 +32,6 @@ const SearchInput: FC<SearchInputProps> = ({ query, onChange, onSubmit, }) => {
             />
             <div>
                 <img className={styles.closeIcon} onClick={handleToggleBurgerMenu} src={search} alt={"close icon"} />
-                {!!open && <FilterMenu/>}
             </div>
         </form>
     );

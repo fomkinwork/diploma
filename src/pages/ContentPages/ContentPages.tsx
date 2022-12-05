@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {useParams} from "react-router-dom";
 
@@ -11,31 +11,41 @@ import { IPostContent} from '../../interface';
 import { IPostCard } from '../../components/common/PostList/PostCard/PostCard';
 import { getPosts, getTrendsPosts } from '../../store/AsynsStore/posts';
 import { getDetailPost } from '../../store/AsynsStore/detailPost';
+import { getPostsAction } from '../../store/reducers/postReducer';
+import { setCardsAction } from '../../store/reducers/selectedCardReducer';
 
 const Content: FC = () => {
 
     const {id = 1} = useParams();
 
-    const [post, setPost] = useState<IPostContent | null>(null);
-    const [posts, setPosts] = useState<IPostContent[]>([]);
+    const [contentPost, setContentPost] = useState<IPostContent | null>(null);
+    const [posts, setPosts] = useState<IPostCard[]>([]);
 
     // @ts-ignore
     const {cards} = useSelector(state => state.selectedCard)
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        getTrendsPosts(setPosts)
-    }, [])
+    const setReduxPosts = (payload: IPostCard[]) => {
+        dispatch(getPostsAction(payload));
+        dispatch(setCardsAction(payload));
+    }
 
     useEffect( () => {
-        const selectedPost = cards.find((posts: IPostContent) => posts.kinopoiskId || posts.filmId === +id)
-        setPost(!!selectedPost ? selectedPost : null)
-        getDetailPost(+id, setPost)
+        getDetailPost(+id, setContentPost)
     }, [])
 
-    if (post) {
+    useEffect(() => {
+        getTrendsPosts((cards: IPostCard[] ) => setReduxPosts(cards))
+    }, [])
+
+    useEffect(() => {
+        setPosts(cards);
+    }, [cards])
+
+    if (contentPost) {
         return ( 
             <PageWrapper>
-                <ContentPost contentPost={post} {...post} postCards={posts}/>
+                <ContentPost contentPost={contentPost} postCards={posts}/>
             </PageWrapper>
         );
     } else {

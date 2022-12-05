@@ -5,6 +5,7 @@
     background-color: black;
     justify-content: flex-start;
     min-height: 100vh;
+    padding: 56px 0 64px;
 }
 
 .lightPageWrapper {

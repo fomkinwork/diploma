@@ -42,6 +42,10 @@
     color: #FFFFFF;
 }
 
+.darkContentTitle {
+    color: #242426;
+}
+
 .contentRating {
     display: flex;
     margin: 24px 0 40px;
@@ -93,6 +97,10 @@
     max-width: 878px;
 }
 
+.darkContentDescription {
+    color: #242426;
+}
+
 .contentInfoBlock {
     display: flex;
 }
@@ -104,6 +112,10 @@
     line-height: 24px;
     color: #AFB2B6;
     width: 150px;
+}
+
+.darkContentRigthBlock p{
+    color: #242426;
 }
 
 .contentSlider {
@@ -133,25 +145,6 @@
 
 .contentInfoRigthBlock:not(:last-child) {
     margin-bottom: 20px;
-}
-
-.itemOne, .itemTwo, .itemThee {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-}
-
-.itemOne {
-    background-color: #00A340;
-}
-
-.itemTwo {
-    background-color: #323537;
-}
-
-.itemThee {
-    background-color: #AFB2B6;
 }
 
 .carousel {

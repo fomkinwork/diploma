@@ -1,28 +1,15 @@
 import React, {ChangeEventHandler, FC, useEffect, useState} from 'react';
-//
-// import {useDispatch} from "react-redux";
-// import {useNavigate} from "react-router-dom";
 
-// import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 import AuthForm, {IFormProps} from "../../components/common/AuthForm/AuthForm";
+import AuthWrapper from "../../components/common/AuthWrapper/AuthWrapper";
 import { Routes } from '../../constants/routes';
-import {useContext} from "react";
-import firebase from 'firebase/compat/app';
-import {getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, inMemoryPersistence, GoogleAuthProvider, onAuthStateChanged} from "firebase/auth";
+import {getAuth, signInWithEmailAndPassword,} from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserAction} from "../../store/reducers/userReducer";
-import {signInWithCredential} from "@firebase/auth";
-import Button from "../../components/common/Button/Button";
 import {useLocation, useNavigate} from "react-router-dom";
 import {handleCatchError} from "../../utils/errorCatcher";
 import {initialFormElementsError} from "../SignUpPage/SignUpPage";
-import Logo from "../../components/common/Header/Logo/Logo";
-import AuthWrapper from "../../components/common/AuthWrapper/AuthWrapper";
 
-// import {handleUserSignIn} from "../../store/asyncActions/userActions";
-
-// import {Routes} from "../../constants/routes";
-// import {PageProps} from "../../types/page";
 
 interface ISignInForm {
     email: string,

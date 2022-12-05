@@ -52,7 +52,7 @@ export const initialFormElementsError: IFormErrors = {
     confirmPassword: initialErrorValue,
 }
 
-const SignUpPage: FC<PageProps> = ({ title = "" }) => {
+const SignUpPage: FC = () => {
     const [signUpForm, setSignUpForm] = useState<ISignUpForm>(initialISignUpForm);
     const [signUpRequestError, setSignUpRequestError] = useState<FormElementError>(initialErrorValue)
     const [signUpInputError, setSignUpInputError] = useState<IFormErrors>(initialFormElementsError)
@@ -60,7 +60,7 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const handleUserRedirect = () => navigate(`${Routes.signUpConfirmation}?email=${signUpForm.email}`);
+    const handleUserNavigate = () => navigate(Routes.main)
 
     const handleSubmit = async () => {
         setSignUpRequestError(initialErrorValue)
@@ -80,15 +80,14 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
                                 photo: user.photoURL
                             }
                         ))
+                        // @ts-ignore
+                        sendEmailVerification(auth.currentUser)
+                            .catch((error) => setSignUpRequestError(handleCatchError(error.code)))
                         setSignUpForm(initialISignUpForm)
+                        handleUserNavigate()
                     })
-                    .catch((error) => setSignUpRequestError(handleCatchError(error.code)));
-                // @ts-ignore
-                await sendEmailVerification(auth.currentUser)
-                    .then((res) => console.log(res))
-                    .catch((error) => setSignUpRequestError(handleCatchError(error.code)))}
-
-    }
+                    .catch((error) => setSignUpRequestError(handleCatchError(error.code)))
+    }}
 
     const handleFormValidate = () => {
         let isValid = true
@@ -96,7 +95,8 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
             // @ts-ignore
             if (!signUpForm[field]) {
                 // @ts-ignore
-                setSignUpInputError(prevState => ({ ...prevState, [field]: { error: true, text: "Required Field is Empty" } }))
+                setSignUpInputError(prevState => ({ ...prevState,
+                    [field]: { error: true, text: "Required Field is Empty" } }))
                 isValid = false
             }
         }
