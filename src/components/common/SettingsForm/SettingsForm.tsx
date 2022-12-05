@@ -7,6 +7,7 @@ import Input from "../Input/Input";
 import Button, {ButtonVariantProps} from "../Button/Button";
 import ThemeSwitcher from "./ThemeSwitcher/ThemeSwitcher";
 import {ThemeVariant} from "../../../context/ThemeContext";
+import {ITopText} from "../../../pages/SettingsPage/SettingsPage";
 
 export interface ISettingsFormProps {
     actionButtonCancel: {
@@ -19,37 +20,42 @@ export interface ISettingsFormProps {
     }
     profileInputs?: InputProps[]
     passwordInputs?: InputProps[]
-    topText?: string
+    topText?: ITopText
     requestError?: FormElementError
     themeSwitcherOnClick?: any
     condition?: any
-    theme?: string
+    isLightTheme?: boolean
 }
 
 const SettingsForm:FC<ISettingsFormProps> = ({profileInputs=[], passwordInputs=[], topText,
                                              requestError,actionButtonCancel,
                                              actionButtonSave,
-                                             themeSwitcherOnClick, condition, theme}) => {
+                                             themeSwitcherOnClick, condition, isLightTheme}) => {
     return (
         <form className={styles.formWrapper}>
             <div className={styles.formBlock}>
-                <p className={styles.topText}>Profile</p>
+                <p className={`${styles.topText} ${isLightTheme ? styles.topTextLight : ""}`}>
+                    {topText?.name ? topText.name : 'Profile'}
+                </p>
                     <div className={`${styles.contentBlock}
-                     ${theme === ThemeVariant.light ? styles.contentBlockWhite : ""}`}>
+                     ${isLightTheme ? styles.contentBlockWhite : ""}`}>
                         {profileInputs.map(input => <Input className={styles.formInput} key={input.id} {...input} />)}
                     </div>
             </div>
             <div className={styles.formBlock}>
-                <p className={styles.topText}>Password</p>
+                <p className={`${styles.topText} ${isLightTheme ? styles.topTextLight : ""}`}>
+                    {requestError?.text ? requestError?.text :
+                    topText?.password ? topText.password : "Password"}
+                </p>
                     <div className={`${styles.contentBlock}
-                    ${theme === ThemeVariant.light ? styles.contentBlockWhite : ""}`}>
+                    ${isLightTheme ? styles.contentBlockWhite : ""}`}>
                     {passwordInputs.map(input => <Input className={styles.formInput} key={input.id} {...input} />)}
                     </div>
             </div>
             <div className={styles.formBlock}>
-                <p className={styles.topText}>Color mode</p>
+                <p className={`${styles.topText} ${isLightTheme ? styles.topTextLight : ""}`}>Color mode</p>
                 <div className={`${styles.contentBlockTheme}
-                 ${theme === ThemeVariant.light ? styles.contentBlockWhite : ""}`}>
+                 ${isLightTheme ? styles.contentBlockWhite : ""}`}>
                     <div className={styles.textBlock}>
                         <span className={styles.themeTopText}>Dark</span>
                         <span className={styles.themeText}>Use dark theme</span>

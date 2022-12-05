@@ -1,4 +1,4 @@
-import React, {createContext, FC, useContext, useState} from 'react';
+import React, {createContext, FC, useContext, useEffect, useMemo, useState} from 'react';
 import {WithChildren} from "../types/withChildren";
 
 enum ThemeVariant {
@@ -9,6 +9,7 @@ enum ThemeVariant {
 interface ThemeContextValue {
     theme: string
     setTheme: (theme: ThemeVariant) => void
+    isLightTheme: boolean
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
@@ -18,12 +19,25 @@ const ThemeProvider: FC<WithChildren> = ({ children }) =>  {
 
     const [theme, setTheme] = useState(activeTheme || ThemeVariant.dark);
 
-    const handleSetTheme = (newTheme: string) => { setTheme(newTheme) }
+    useEffect(() => {
+        const currentTheme = localStorage.getItem("theme");
+        if (currentTheme) {
+            setTheme(currentTheme);
+        }
+    },[theme])
+
+    const handleSetTheme = (newTheme: ThemeVariant) => {
+        setTheme(newTheme)
+        localStorage.setItem("theme", newTheme)
+    }
+
+    const isLightTheme = useMemo(()=> theme === ThemeVariant.light, [theme])
 
     return (
         <ThemeContext.Provider value={{
             theme: theme,
-            setTheme: handleSetTheme
+            setTheme: handleSetTheme,
+            isLightTheme: isLightTheme
         }}>
             {children}
         </ThemeContext.Provider>

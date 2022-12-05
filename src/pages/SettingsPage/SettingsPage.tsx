@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ThemeVariant, useTheme} from "../../context/ThemeContext";
 import {IFormErrors, initialFormElementsError} from "../SignUpPage/SignUpPage";
 import {FormElementError, initialErrorValue} from "../SignInPage/SignInPage";
+import {handleCatchError} from "../../utils/errorCatcher";
 
 
 interface ISettingsForm {
@@ -33,19 +34,30 @@ const initialISettingsForm = {
     confirmPassword: ""
 }
 
+export interface ITopText {
+    name?: string,
+    email?: string,
+    password?: string,
+}
+
+export const initialTopTextValue =  {
+    name: "",
+    email: "",
+    password: "",
+}
 
 const SettingsPage:FC<PageProps> = () => {
     const auth = getAuth();
     const user = auth.currentUser;
 
-    const dispatch = useDispatch()
     // @ts-ignore
     const [settingsForm, setSettingsForm] = useState<ISettingsForm>(initialISettingsForm);
     const [settingsFormInputError, setSettingsFormInputError] = useState<IFormErrors>(initialFormElementsError);
-    const [signInRequestError, setSignInRequestError] = useState<FormElementError>(initialErrorValue);
-    console.log(settingsFormInputError)
-    console.log(settingsForm)
-    const {theme, setTheme} = useTheme()
+    const [settingsFormRequestError, setSettingsFormRequestError] = useState<FormElementError>(initialErrorValue);
+    const [topText, setTopText] = useState<ITopText>(initialTopTextValue)
+
+    const {theme, setTheme, isLightTheme} = useTheme()
+    
 
     const handleSetTheme = () => {
         theme === ThemeVariant.dark ? setTheme(ThemeVariant.light) : setTheme(ThemeVariant.dark)
@@ -55,14 +67,17 @@ const SettingsPage:FC<PageProps> = () => {
     useEffect(() => {
         if (user !== null) {
             // @ts-ignore
-            setSettingsForm({email : user.email, name : user.displayName,password:"",confirmPassword:"", newPassword:""})
+            setSettingsForm({email : user.email, name : user.displayName,
+                password:"",
+                confirmPassword:"",
+                newPassword:""})
         }}
         , [user])
 
     const handleSubmitSettingsForm = async () => {
         if (user !== null) {
             await handleChangeProfile (user)
-            await handleChangePassword (user)
+            settingsForm.confirmPassword.length && await handleChangePassword(user)
         }
     }
 
@@ -71,46 +86,41 @@ const SettingsPage:FC<PageProps> = () => {
     }
 
     const handleChangeProfile = async (user: any) => {
-        const isValid = handleFormValidate()
-        if (isValid) {
-            if (user.displayName !== settingsForm.name && settingsForm.name.length > 2){
-                await updateProfile(user, {
-                    displayName: settingsForm.name
-                }).then(() => {
-                    console.log("Profile updated")
-                }).catch(console.error);
-            } else {
-                console.log("need to change some fields")
-            }
+        if (user.displayName !== settingsForm.name && settingsForm.name.length > 2) {
+            await updateProfile(user, {
+                displayName: settingsForm.name
+            }).then(() => {
+                setTopText(prevState => ({...prevState, name: "Profile Updated"}))
+            }).catch(console.error);
             if (user.email !== settingsForm.email) {
                 await updateEmail(user, settingsForm.email)
                     .then(() => {
                         sendEmailVerification(user)
                             .then(() => {
-                                console.log("Pismo otpravleno")
+                                setTopText(prevState => ({...prevState, email: "Letter sent to email"}))
                             });
                     }).catch(console.error);
             }
         }
-
     }
 
     const handleChangePassword = async (user: any) => {
-        if (!!settingsForm.password && !!settingsForm.newPassword &&
-            settingsForm.newPassword === settingsForm.confirmPassword) {
-            await signInWithEmailAndPassword(auth, settingsForm.email, settingsForm.password)
-                .then(({user}) => {
-                    if (user.uid) {
-                        console.log(user.uid)
-                        updatePassword(user, settingsForm.confirmPassword).then(() => {
-                            console.log("Password updated")
-                        }).catch(console.error);
-                    }
-                })
-                .catch(console.error);
-        } else {
-            console.log("incorrect password")
-        }
+            if (!!settingsForm.password && !!settingsForm.newPassword &&
+                settingsForm.newPassword === settingsForm.confirmPassword) {
+                await signInWithEmailAndPassword(auth, settingsForm.email, settingsForm.password)
+                    .then(({user}) => {
+                        if (user.uid) {
+                            updatePassword(user, settingsForm.confirmPassword).then(() => {
+                                setTopText(prevState => ({ ...prevState, password: "Password changed" }))
+                            }).catch((error) => setSettingsFormRequestError(handleCatchError(error.code)))
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                        setSettingsFormRequestError(handleCatchError(error.code))})
+            } else {
+                setTopText(prevState => ({ ...prevState, password: "Error in fields, try again" }))
+            }
     }
 
     const handleFormValidate = () => {
@@ -213,9 +223,9 @@ const SettingsPage:FC<PageProps> = () => {
         },
         themeSwitcherOnClick: handleSetTheme,
         condition: theme === ThemeVariant.dark,
-        theme: theme
-        // topText: location.pathname === "/signup/success" ? "Your password has been changed !" : "" ,
-        // requestError: signInRequestError
+        isLightTheme: isLightTheme,
+        topText: topText,
+        requestError: settingsFormRequestError
     }
 
     return (

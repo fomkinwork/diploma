@@ -1,5 +1,6 @@
 .searchInputWrapper {
     width: 100%;
+    max-width: 1186px;
     height: 56px;
     display: flex;
     justify-content: space-between;

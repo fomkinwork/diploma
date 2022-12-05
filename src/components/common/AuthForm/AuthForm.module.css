@@ -11,6 +11,7 @@
     background: #242426;
     border-radius: 10px;
     z-index: 3;
+    position: relative;
 }
 
 .title {
@@ -74,6 +75,22 @@
 .link {
     text-decoration: none;
     color:#7B61FF
+}
+
+.errorBlock {
+    position: relative;
+    width: 100%;
+}
+
+.topTextError {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    color: #FF5154;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
 }
 
 @media  screen and (max-width: 768px) {
