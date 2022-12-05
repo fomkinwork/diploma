@@ -16,7 +16,8 @@ const Input: FC<InputProps>  = ({
                                     error= { text: null, error: false },
                                     className = "",
                                     onSelect,
-                                    required
+                                    required,
+                                    theme
                                 }) => {
     return (
         <div className={`${styles.inputWrapper} ${!!className ? className : ""}`}>

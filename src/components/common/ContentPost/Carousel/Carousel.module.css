@@ -19,8 +19,25 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
+    max-width: 95%;
 }
 
-.carouselItems img{
-    cursor: pointer; 
+.carouselContainer {
+    width: 80%;
+}
+
+.carouselArrowLeft, .carouselArrowRigth {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.carouselArrowLeft {
+    fill: #FFFFFF;
+}
+
+.carouselActions {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
 }

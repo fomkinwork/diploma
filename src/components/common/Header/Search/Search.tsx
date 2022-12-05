@@ -7,12 +7,13 @@ import SearchIcon from "./SearchIcon/SearchIcon";
 import {useNavigate} from "react-router-dom";
 
 interface SearchProps {
+    theme?: string;
     query: string
     onChange: ChangeEventHandler<HTMLInputElement>
     onSubmit: FormEventHandler<HTMLFormElement>
 }
 
-const Search: FC<SearchProps> = ({ query = "", onChange, onSubmit}) => {
+const Search: FC<SearchProps> = ({theme, query = "", onChange, onSubmit}) => {
     const [open, setOpen] = useState<boolean>(false);
     const navigate = useNavigate()
     const handleClose = () => navigate(`/blog/`)

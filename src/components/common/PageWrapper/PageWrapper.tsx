@@ -7,12 +7,13 @@ import Aside from "../Aside/Aside";
 import styles from "./PageWrapper.module.css"
 import Header from "../Header/Header";
 import {useSelector} from "react-redux";
-import {ThemeVariant} from "../../../store/reducers/themeReducer";
+
+import {ThemeVariant, useTheme} from "../../../context/ThemeContext";
 
 const PageWrapper: FC<WithChildren> = ({children}) => {
 
-    // @ts-ignore
-    const {theme} = useSelector(state => state.theme)
+    const {theme} = useTheme()
+
 
     return (
             <div className={`${styles.pageWrapper}

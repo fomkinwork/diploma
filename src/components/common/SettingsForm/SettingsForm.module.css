@@ -51,6 +51,7 @@
 }
 
 .themeText {
+
     font-family: 'Exo 2';
     font-weight: 500;
     font-size: 16px;
@@ -72,4 +73,15 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+}
+
+.buttonsBlock {
+    height: 56px;
+    gap: 40px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contentBlockWhite {
+    background: #666666;
 }

@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setUserAction} from "../../store/reducers/userReducer"
 import {handleCatchError} from "../../utils/errorCatcher";
 import Logo from "../../components/common/Header/Logo/Logo";
+import AuthWrapper from "../../components/common/AuthWrapper/AuthWrapper";
 // import PageWrapper from "../../components/common/PageWrapper/PageWrapper";
 //
 // import {Routes} from "../../constants/routes";
@@ -58,7 +59,6 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
 
     // const handleUserRedirect = () => navigate(`${Routes.signUpConfirmation}?email=${signUpForm.email}`);
 
@@ -176,16 +176,15 @@ const SignUpPage: FC<PageProps> = ({ title = "" }) => {
             onSubmit: handleSubmit,
             title: "Sign Up"
         },
-        topText: 'Sign Up',
         disabledButton: false,
-        requestError: signUpRequestError
+        requestError: signUpRequestError,
+        title: "Sign Up"
     }
 
     return (
-        <div>
-            <Logo/>
+        <AuthWrapper>
             <AuthForm {...signUpFormConfig} />
-        </div>
+        </AuthWrapper>
     );
 };
 

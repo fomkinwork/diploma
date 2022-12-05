@@ -18,6 +18,7 @@ export interface IFormProps {
     topText?: string
     disabledButton?: boolean
     requestError?: FormElementError
+    title?: string
 }
 
 export interface FormElementError {
@@ -41,18 +42,19 @@ const initialFormElementsError: IFormErrors = {
     text: initialErrorValue,
 }
 
-const AuthForm:FC<IFormProps> = ({ inputs= [], topText = "", page, actionButton,
-                                 disabledButton, requestError}) => {
+const AuthForm:FC<IFormProps> = ({ inputs= [], topText, page, actionButton,
+                                 disabledButton, requestError, title}) => {
 
     const isSignInPage = useMemo(() => page === Routes.signIn, [page])
     const isSignUpPage = useMemo(() => page === Routes.signUp, [page])
     
     return (
         <form className={styles.formWrapper}>
-            {!!topText && <p className={styles.topText} dangerouslySetInnerHTML={{__html: topText}}></p>}
+            {title && <p className={styles.title}>{title}</p>}
+            {topText ? <p className={styles.topText}>{topText}</p> : ""}
             {requestError && <p className={styles.topText}>{requestError.text}</p>}
             {inputs.map(input => <Input className={styles.formInput} key={input.id} {...input} />)}
-            {isSignInPage && <Link to={Routes.resetPasswordEmail}>Forgot password?</Link>}
+            {isSignInPage && <Link className={styles.forgotPassword} to={Routes.resetPasswordEmail}>Forgot password?</Link>}
             <Button
                 disabled={disabledButton}
                 onClick={actionButton.onSubmit}

@@ -33,7 +33,7 @@
 
 input:focus,
 input:focus-visible {
-    border: 2px solid #DADADA;
+    border: 2px solid #7B61FF;
     outline: unset;
 }
 
@@ -53,4 +53,10 @@ input::placeholder {
     color: #FD3419;
     position: absolute;
     bottom: -19px;
+}
+
+@media  screen and (max-width: 768px) {
+    .input{
+        min-width: auto;
+    }
 }

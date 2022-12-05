@@ -4,6 +4,7 @@ import FilterMenu from '../../FilterMenu/FilterMenu';
 
 // @ts-ignore
 import styles from "./SearchInput.module.css";
+import {ThemeVariant, useTheme} from "../../../../../context/ThemeContext";
 
 interface SearchInputProps {
     query: string
@@ -12,11 +13,12 @@ interface SearchInputProps {
     onSubmit: FormEventHandler<HTMLFormElement>
 }
 
-const SearchInput: FC<SearchInputProps> = ({ query, onChange, onSubmit }) => {
+const SearchInput: FC<SearchInputProps> = ({ query, onChange, onSubmit, }) => {
     const [open, setOpen] = useState(false);
     const handleToggleBurgerMenu = (e:any) => {
         setOpen(prevState => !prevState);
     }
+    const {theme} = useTheme()
     return (
         <form onSubmit={onSubmit} className={styles.searchInputWrapper}>
             <input
@@ -25,7 +27,8 @@ const SearchInput: FC<SearchInputProps> = ({ query, onChange, onSubmit }) => {
                 onChange={onChange}
                 name={"searchInput"}
                 placeholder={"Search..."}
-                className={styles.searchInput}
+                className={`${styles.searchInput}
+                ${theme === ThemeVariant.light ? styles.searchDarkInput : ""}`}
             />
             <div>
                 <img className={styles.closeIcon} onClick={handleToggleBurgerMenu} src={search} alt={"close icon"} />

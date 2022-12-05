@@ -33,9 +33,9 @@ const Carousel: FC<WithChildren> = ({children}) => {
         <div className={styles.carouselContainer}>
             <div className={styles.carouselItems}>
                 <p className={styles.carouselTitle}>Recommendations</p>
-                <div>
-                    <img src={arrowLeft} alt="arrow" onClick={handleLeftArrowClick}/>
-                    <img src={arrowRigth} alt="arrow" onClick={handleRigthArrowClick}/>
+                <div className={styles.carouselActions}>
+                    {!!offset && <button className={styles.carouselArrowLeft} onClick={handleLeftArrowClick}><img src={arrowLeft} alt="arrow"/></button>}
+                    <button className={styles.carouselArrowRigth} onClick={handleRigthArrowClick}><img src={arrowRigth} alt="arrow"/></button>                    
                 </div>
             </div>
             <div className={styles.windowCarousel}>

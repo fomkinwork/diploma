@@ -27,7 +27,7 @@ const Button: FC<ButtonProps & WithChildren> = (
         type= "button",
         children,
         onClick= () => {},
-        disabled
+        disabled,
     }) => {
 
     return (

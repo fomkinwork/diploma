@@ -1,4 +1,5 @@
 .logo {
     cursor: pointer;
-    padding-right: 107px;
+    max-width: 320px;
+    padding-right: 106px;
 }

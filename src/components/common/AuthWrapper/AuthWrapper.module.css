@@ -1,0 +1,28 @@
+.authWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    object-fit: contain;
+    background-image:linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 45.65%),url(/src/assets/authBackground.jpg);
+}
+
+.authHeader {
+    text-align: left;
+    position: absolute;
+    top: 48px;
+    left: 62px;
+}
+
+@media screen and (max-width: 375px) {
+    .authHeader
+    {
+        left: 0;
+        right: 0;
+        top: 32px;
+    }
+
+}

@@ -6,14 +6,14 @@ import imbd from '../../../assets/Imbd.svg'
 
 import styles from './ContentPost.module.css'
 import { IPostContent } from '../../../interface'
-import ContentPostButton from "./ContentPostButton/ContentPostButton";
 import Carousel from "./Carousel/Carousel";
 import PostCard, { IPostCard } from "../PostList/PostCard/PostCard";
-import { getPosts } from "../../../store/AsynsStore/posts";
+import Button from "../Button/Button";
 
 export interface ContentPostProps {
     contentPost: IPostContent
     postCards: IPostCard[]
+    onClick?: () => void
 }
 
 const ContentPost: FC<ContentPostProps> = ({contentPost, postCards}) => {
@@ -24,8 +24,8 @@ const ContentPost: FC<ContentPostProps> = ({contentPost, postCards}) => {
                 <div className={styles.contentPoster}>
                     <img src={contentPost.posterUrl} alt={contentPost.type}  className={styles.contentPosterImg}/>
                     <div className={styles.contentPosterBtn}>
-                        <ContentPostButton className={styles.contentPostMore} icon={more}/>
-                        <ContentPostButton className={styles.contentPostFrame} icon={frame}/>
+                        <Button className={styles.contentPostMore}><img src={more} alt="icon" /></Button>
+                        <Button className={styles.contentPostFrame}><img src={frame} alt="icon" /></Button>
                     </div>
                 </div>
                 <div className={styles.contentDetail}>
@@ -69,13 +69,16 @@ const ContentPost: FC<ContentPostProps> = ({contentPost, postCards}) => {
                             <p className={styles.contentInfoRigthBlock}>J.K. Rowling, Steve Kloves</p>
                         </div>
                     </div>
-            <Carousel>
-                <div className={styles.carousel}>
-                    {postCards.map((postCard: IPostCard) => <PostCard key={postCard.kinopoiskId} postCard={postCard} />)}
-                </div>
-            </Carousel>
                 </div>
             </div>
+            <div className={styles.carousel}>
+                <Carousel>
+                    <div className={styles.carousel}>
+                        {postCards.map((postCard: IPostCard) => <PostCard key={postCard.filmId || postCard.kinopoiskId} postCard={postCard} />)}
+                    </div>
+                </Carousel>
+            </div>
+
         </div>
     )
 }
