@@ -43,7 +43,9 @@ const AuthForm:FC<IFormProps> = ({ inputs= [], topText, page, actionButton,
         <form className={styles.formWrapper}>
             {title && <p className={styles.title}>{title}</p>}
             <div className={styles.errorBlock}>
-                {topText ? <p className={styles.topText}>{topText}</p> : requestError ? <p className={styles.topTextError}>{requestError.text}</p> : ""}
+                {topText ? <p className={styles.topText}>{topText}</p>
+                    :
+                    requestError ? <p className={styles.topTextError}>{requestError.text}</p> : ""}
             </div>
             {inputs.map(input => <Input className={styles.formInput} key={input.id} {...input} />)}
             {isSignInPage && <Link className={styles.forgotPassword} to={Routes.resetPasswordEmail}>Forgot password?</Link>}

@@ -78,7 +78,10 @@ const SettingsPage:FC<PageProps> = () => {
     const handleSubmitSettingsForm = async () => {
         if (user !== null) {
             await handleChangeProfile (user)
-            settingsForm.confirmPassword.length && await handleChangePassword(user)
+            const isValid = handleFormValidate()
+            if (settingsForm.confirmPassword.length && isValid) {
+                await handleChangePassword(user)
+            }
         }
     }
 
@@ -120,7 +123,6 @@ const SettingsPage:FC<PageProps> = () => {
                         }
                     })
                     .catch((error) => {
-                        console.error(error)
                         setSettingsFormRequestError(handleCatchError(error.code))})
             } else {
                 setTopText(prevState => ({ ...prevState, password: "Error in fields, try again" }))

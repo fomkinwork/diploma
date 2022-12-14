@@ -35,7 +35,6 @@ export enum Routes {
     resetPasswordSuccess = "/reset-password/success",
     resetPasswordEmail = "/reset-password",
     resetPassword = "/reset-password/new-password",
-    signUpConfirmation = "/activate/:uid/:token"
 }
 
 export const PUBLIC_ROUTES: IRoute[] = [
